@@ -8,7 +8,7 @@ Stage::Stage() :
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
-			m_stageArray[y][x] = 0;
+			stage[y][x] = 0;
 		}
 	}
 }
@@ -19,10 +19,27 @@ Stage::~Stage()
 
 void Stage::init()
 {
+	for (int i = 0; i < STAGE_HEIGHT; i++) {
+		for (int j = 0; j < STAGE_WIDTH; j++) {
+			stage[i][0] = 9;
+			stage[i][1] = 9;
+			stage[i][2] = 9;
+			stage[20][j] = 9;
+			stage[21][j] = 9;
+			stage[22][j] = 9;
+			stage[i][15] = 9;
+			stage[i][16] = 9;
+			stage[i][17] = 9;
+		}
+	}
+
+	// ”wŒi‚Ìƒnƒ“ƒhƒ‹
+	m_backHandle = LoadGraph("data/back2.jpg");
 }
 
 void Stage::end()
 {
+	DeleteGraph(m_backHandle);
 }
 
 void Stage::update()

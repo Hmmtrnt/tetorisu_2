@@ -18,7 +18,7 @@ public:
 	void draw();
 
 	// ステージの配列
-	int m_stageArray[STAGE_HEIGHT][STAGE_WIDTH];
+	int stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 private:
 	// 背景のハンドル
