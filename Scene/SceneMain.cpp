@@ -11,6 +11,8 @@ SceneMain::SceneMain() :
 	block_y_count(0),
 	block_speed(0),
 	collision_flag(0),
+	gameover_flag(0),
+	make_block_flag(0),
 	back_img1(-1)
 {
 	//m_pMino = new Mino;
@@ -62,17 +64,27 @@ SceneBase* SceneMain::update()
 	// ‰¼‚ÌŠÖ””z—ñ
 	
 	my_make_block();
+	my_gameover();
 	my_move_block();
 	my_draw_back();
 	my_draw_variable();
 	my_draw_block();
 	my_draw_stage();
+	my_fix_block();
 	my_fall_block();
 
-	if (block_y_count > DRAW_BLOCK_WIDTH * 17) {
+	if (gameover_flag == 1)
+	{
+		my_draw_back();
+		my_draw_block();
+		my_draw_stage();
+		my_ed();
+	}
+
+	/*if (block_y_count > DRAW_BLOCK_WIDTH * 17) {
 		block_y_count = 0;
 		block_y = 0;
-	}
+	}*/
 
 	if (Pad::isTrigger(PAD_INPUT_2))
 	{
@@ -110,16 +122,44 @@ void SceneMain::my_init_var()
 	block_y_count = 0;
 	block_speed = 0.5f;
 	collision_flag = 0;
+	gameover_flag = 0;
+	make_block_flag = 1;
 
 	back_img1 = LoadGraph("data/back2.jpg");
 }
 
+void SceneMain::my_init_var2()
+{
+	block_x = 7;
+	block_y = 0;
+	block_y_count = 0;
+	make_block_flag = 1;
+}
+
+void SceneMain::my_ed()
+{
+	DrawFormatString(400, 400, kColor::Color_Black, "GAME OVER");
+}
+
 void SceneMain::my_make_block()
 {
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
-			block[y][x] = kMino::blocks[y][x];
+	if (make_block_flag == 1)
+	{
+		for (int y = 0; y < BLOCK_HEIGHT; y++) {
+			for (int x = 0; x < BLOCK_WIDTH; x++) {
+				block[y][x] = kMino::blocks[y][x];
+			}
 		}
+		make_block_flag = 0;
+	}
+}
+
+void SceneMain::my_gameover()
+{
+	my_collision_center();
+
+	if (collision_flag != 0) {
+		gameover_flag = 1;
 	}
 }
 
@@ -138,6 +178,14 @@ void SceneMain::my_move_block()
 		my_collision_right();
 		if (collision_flag == 0) {
 			block_x++;
+		}
+	}
+	if (Pad::isPress(PAD_INPUT_DOWN) == 1)
+	{
+		my_collision_bottom();
+		if (collision_flag == 0) {
+			block_y++;
+			block_y_count = block_y * DRAW_BLOCK_WIDTH;
 		}
 	}
 }
@@ -182,6 +230,55 @@ void SceneMain::my_collision_right()
 	}
 }
 
+void SceneMain::my_collision_bottom()
+{
+	collision_flag = 0;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (block[y][x] != 0) {
+				if (stage[block_y + (y + 1)][block_x + x] != 0) {
+					collision_flag = 1;
+				}
+			}
+		}
+	}
+}
+
+void SceneMain::my_collision_center()
+{
+	collision_flag = 0;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (block[y][x] != 0) {
+				if (stage[block_y + y][block_x + x] != 0) {
+					collision_flag = 1;
+				}
+			}
+		}
+	}
+}
+
+void SceneMain::my_fix_block()
+{
+	my_collision_bottom();
+
+	if (collision_flag != 0) {
+		my_save_block();
+		my_init_var2();
+	}
+}
+
+void SceneMain::my_save_block()
+{
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			stage[block_y + y][block_x + x] += block[y][x];
+		}
+	}
+}
+
 void SceneMain::my_draw_back()
 {
 	DrawGraph(0, 0, back_img1, TRUE);
@@ -197,8 +294,10 @@ void SceneMain::my_draw_variable()
 
 void SceneMain::my_draw_block()
 {
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
 			if (block[y][x] == 1)DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 				block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
 		}
@@ -207,18 +306,34 @@ void SceneMain::my_draw_block()
 
 void SceneMain::my_draw_stage()
 {
-	for (int y = 0; y < STAGE_HEIGHT; y++) {
-		for (int x = 0; x < STAGE_WIDTH; x++) {
-			if (stage[y][x] == 1)DrawFormatString(x * DRAW_BLOCK_WIDTH,
-				y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
-			else if (stage[y][x] == 9)DrawFormatString(x * DRAW_BLOCK_WIDTH,
-				y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "¡");
+	for (int y = 0; y < STAGE_HEIGHT - 2; y++)
+	{
+		for (int x = 2; x < STAGE_WIDTH - 2; x++)
+		{
+			if (stage[y][x] == 1)
+			{
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
+			}
+			else if (stage[y][x] == 2)
+			{
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
+			}
+			else if (stage[y][x] == 9)
+			{
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "¡");
+			}
 		}
 	}
 }
 
 void SceneMain::my_fall_block()
 {
-	block_y_count += block_speed;
-	block_y = block_y_count / DRAW_BLOCK_WIDTH;
+	if (make_block_flag == 0)
+	{
+		block_y_count += block_speed;
+		block_y = block_y_count / DRAW_BLOCK_WIDTH;
+	}
 }

@@ -18,10 +18,17 @@ public:
 
 	// âºÇÃä÷êî
 	void my_init_var();
+	void my_init_var2();
+	void my_ed();
 	void my_make_block();
+	void my_gameover();
 	void my_move_block();
 	void my_collision_left();
 	void my_collision_right();
+	void my_collision_bottom();
+	void my_collision_center();
+	void my_fix_block();
+	void my_save_block();
 	void my_draw_back();
 	void my_draw_variable();
 	void my_draw_block();
@@ -39,6 +46,8 @@ private:
 	float block_y_count;
 	float block_speed;
 	int collision_flag;
+	int gameover_flag;
+	int make_block_flag;
 
 	int back_img1;
 
