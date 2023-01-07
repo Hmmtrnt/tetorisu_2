@@ -28,6 +28,8 @@ public:
 	void my_collision_bottom();
 	void my_collision_center();
 	void my_fix_block();
+	void my_search_line();
+	void my_clear_line();
 	void my_save_block();
 	void my_draw_back();
 	void my_draw_variable();
@@ -41,6 +43,8 @@ private:
 	int block[BLOCK_HEIGHT][BLOCK_WIDTH];
 	int stage[STAGE_HEIGHT][STAGE_WIDTH];
 
+	int clear_line_point[STAGE_HEIGHT - 3];
+
 	int block_x;
 	int block_y;
 	float block_y_count;
@@ -48,6 +52,9 @@ private:
 	int collision_flag;
 	int gameover_flag;
 	int make_block_flag;
+	int clear_flag;
+	int block_id;
+	int clear_count;
 
 	int back_img1;
 

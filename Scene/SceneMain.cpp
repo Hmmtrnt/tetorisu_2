@@ -2,6 +2,7 @@
 #include "SceneResult.h"
 #include "DxLib.h"
 #include "Pad.h"
+#include <time.h>
 //#include "Mino.h"
 //#include "Stage.h"
 
@@ -13,6 +14,9 @@ SceneMain::SceneMain() :
 	collision_flag(0),
 	gameover_flag(0),
 	make_block_flag(0),
+	clear_flag(0),
+	block_id(0),
+	clear_count(0),
 	back_img1(-1)
 {
 	//m_pMino = new Mino;
@@ -62,16 +66,25 @@ SceneBase* SceneMain::update()
 	}*/
 
 	// ‰¼‚ÌŠÖ””z—ñ
-	
-	my_make_block();
-	my_gameover();
-	my_move_block();
-	my_draw_back();
-	my_draw_variable();
-	my_draw_block();
-	my_draw_stage();
-	my_fix_block();
-	my_fall_block();
+	if (clear_flag == 0)
+	{
+		my_make_block();
+		my_gameover();
+		my_move_block();
+		my_draw_back();
+		my_draw_variable();
+		my_draw_block();
+		my_draw_stage();
+		my_fix_block();
+		my_fall_block();
+	}
+	else
+	{
+		my_clear_line();
+		my_draw_back();
+		my_draw_variable();
+		my_draw_stage();
+	}
 
 	if (gameover_flag == 1)
 	{
@@ -125,8 +138,12 @@ void SceneMain::my_init_var()
 	collision_flag = 0;
 	gameover_flag = 0;
 	make_block_flag = 1;
+	block_id = 0;
+	clear_count = 0;
 
 	back_img1 = LoadGraph("data/back2.jpg");
+
+	srand((unsigned)time(NULL));
 }
 
 // “ñŒÂ–ÚˆÈ~‚Ì‰Šú‰»
@@ -149,9 +166,10 @@ void SceneMain::my_make_block()
 {
 	if (make_block_flag == 1)
 	{
+		block_id = (rand() % BLOCK_TYPE);
 		for (int y = 0; y < BLOCK_HEIGHT; y++) {
 			for (int x = 0; x < BLOCK_WIDTH; x++) {
-				block[y][x] = kMino::blocks[y][x];
+				block[y][x] = kMino::blocks[(block_id * BLOCK_HEIGHT) + y][x];
 			}
 		}
 		make_block_flag = 0;
@@ -228,11 +246,14 @@ void SceneMain::my_collision_right()
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
 		for (int x = 0; x < BLOCK_WIDTH; x++) {
 			if (block[y][x] != 0) {
-				if (stage[block_y + y][block_x + (x + 1)] != 0) {
+				if (stage[block_y + y][block_x + (x + 1)] != 0)
+				{
 					collision_flag = 1;
 				}
-				else if ((int)(block_y_count - (block_y * DRAW_BLOCK_WIDTH)) > 0) {
-					if (stage[block_y + (y + 1)][block_x + (x + 1)] != 0) {
+				else if ((int)(block_y_count - (block_y * DRAW_BLOCK_WIDTH)) > 0)
+				{
+					if (stage[block_y + (y + 1)][block_x + (x + 1)] != 0)
+					{
 						collision_flag = 1;
 					}
 				}
@@ -246,10 +267,14 @@ void SceneMain::my_collision_bottom()
 {
 	collision_flag = 0;
 
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
-			if (block[y][x] != 0) {
-				if (stage[block_y + (y + 1)][block_x + x] != 0) {
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			if (block[y][x] != 0)
+			{
+				if (stage[block_y + (y + 1)][block_x + x] != 0)
+				{
 					collision_flag = 1;
 				}
 			}
@@ -262,10 +287,14 @@ void SceneMain::my_collision_center()
 {
 	collision_flag = 0;
 
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
-			if (block[y][x] != 0) {
-				if (stage[block_y + y][block_x + x] != 0) {
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			if (block[y][x] != 0)
+			{
+				if (stage[block_y + y][block_x + x] != 0)
+				{
 					collision_flag = 1;
 				}
 			}
@@ -278,8 +307,83 @@ void SceneMain::my_fix_block()
 {
 	my_collision_bottom();
 
-	if (collision_flag != 0) {
+	if (collision_flag != 0)
+	{
 		my_save_block();
+		my_search_line();
+		if (clear_flag == 0)
+		{
+			my_init_var2();
+		}
+	}
+}
+
+void SceneMain::my_search_line()
+{
+	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	{
+		clear_line_point[i] = 0;
+	}
+
+	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	{
+		for (int j = 3; j < STAGE_WIDTH - 3; j++)
+		{
+			if (stage[i][j] == 0)
+			{
+				clear_line_point[i] = 1;
+				break;
+			}
+		}
+	}
+
+	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	{
+		if (clear_line_point[i] == 0)
+		{
+			clear_flag = 1;
+			break;
+		}
+	}
+}
+
+void SceneMain::my_clear_line()
+{
+	int remain_line_point[20] = { 0 };
+	int remain_line_index = 0;
+
+	if (clear_count < 12) {
+		for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+		{
+			if (clear_line_point[i] == 0)
+			{
+				stage[i][clear_count + 3] = 0;
+			}
+		}
+		clear_count++;
+	}
+	else {
+		for (int i = STAGE_HEIGHT - 4; i >= 0; i--)
+		{
+			if (clear_line_point[i] != 0)
+			{
+				remain_line_point[remain_line_index] = i;
+				remain_line_index++;
+			}
+		}
+
+		remain_line_index = 0;
+		for (int i = STAGE_HEIGHT - 4; i >= 0; i--)
+		{
+			for (int j = 3; j < STAGE_WIDTH - 3; j++)
+			{
+				stage[i][j] = stage[remain_line_point[remain_line_index]][j];
+			}
+			remain_line_index++;
+		}
+
+		clear_flag = 0;
+		clear_count = 0;
 		my_init_var2();
 	}
 }
@@ -315,8 +419,49 @@ void SceneMain::my_draw_block()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (block[y][x] == 1)DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-				block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
+			// Oƒ~ƒm
+			if (block[y][x] == 1)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
+			}
+			// Iƒ~ƒm
+			else if (block[y][x] == 2)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
+			}
+			// Sƒ~ƒm
+			else if (block[y][x] == 3)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
+			}
+			// Zƒ~ƒm
+			else if (block[y][x] == 4)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
+			}
+			// Jƒ~ƒm
+			else if (block[y][x] == 5)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
+			}
+			// Lƒ~ƒm
+			else if (block[y][x] == 6)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
+			}
+			// Tƒ~ƒm
+			else if (block[y][x] == 7)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
+			}
+				
 		}
 	}
 }
