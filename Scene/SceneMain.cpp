@@ -172,8 +172,10 @@ void SceneMain::my_make_block()
 	if (make_block_flag == 1)
 	{
 		block_id = (rand() % BLOCK_TYPE);
-		for (int y = 0; y < BLOCK_HEIGHT; y++) {
-			for (int x = 0; x < BLOCK_WIDTH; x++) {
+		for (int y = 0; y < BLOCK_HEIGHT; y++)
+		{
+			for (int x = 0; x < BLOCK_WIDTH; x++)
+			{
 				block[y][x] = kMino::blocks[(block_id * BLOCK_HEIGHT) + y][x];
 			}
 		}
@@ -186,7 +188,8 @@ void SceneMain::my_gameover()
 {
 	my_collision_center();
 
-	if (collision_flag != 0) {
+	if (collision_flag != 0)
+	{
 		gameover_flag = 1;
 	}
 }
@@ -207,7 +210,8 @@ void SceneMain::my_move_block()
 	if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
 	{
 		my_collision_right();
-		if (collision_flag == 0) {
+		if (collision_flag == 0)
+		{
 			block_x++;
 		}
 	}
@@ -215,7 +219,8 @@ void SceneMain::my_move_block()
 	if (Pad::isPress(PAD_INPUT_DOWN) == 1)
 	{
 		my_collision_bottom();
-		if (collision_flag == 0) {
+		if (collision_flag == 0)
+		{
 			block_y++;
 			block_y_count = (float)block_y * DRAW_BLOCK_WIDTH;
 		}
@@ -227,14 +232,20 @@ void SceneMain::my_collision_left()
 {
 	collision_flag = 0;
 
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
-			if (block[y][x] != 0) {
-				if (stage[block_y + y][block_x + (x - 1)] != 0) {
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			if (block[y][x] != 0)
+			{
+				if (stage[block_y + y][block_x + (x - 1)] != 0)
+				{
 					collision_flag = 1;
 				}
-				else if ((int)(block_y_count - (block_y * DRAW_BLOCK_WIDTH)) > 0) {
-					if (stage[block_y + (y + 1)][block_x + (x - 1)] != 0) {
+				else if ((int)(block_y_count - (block_y * DRAW_BLOCK_WIDTH)) > 0)
+				{
+					if (stage[block_y + (y + 1)][block_x + (x - 1)] != 0)
+					{
 						collision_flag = 1;
 					}
 				}
@@ -403,7 +414,7 @@ void SceneMain::my_save_block()
 	}
 }
 
-// îwåií«â¡
+// îwåiï`âÊ
 void SceneMain::my_draw_back()
 {
 	DrawGraph(0, 0, back_img1, TRUE);
@@ -480,44 +491,44 @@ void SceneMain::my_draw_stage()
 			// OÉ~Ém
 			if (stage[y][x] == 1)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
 			}
 			// IÉ~Ém
 			else if (stage[y][x] == 2)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
 			}
 			// SÉ~Ém
 			else if (stage[y][x] == 3)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
 			}
 			// ZÉ~Ém
 			else if (stage[y][x] == 4)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
 			}
 			// JÉ~Ém
 			else if (stage[y][x] == 5)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
 			}
 			// LÉ~Ém
 			else if (stage[y][x] == 6)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
 			}
 			// TÉ~Ém
 			else if (stage[y][x] == 7)
 			{
-				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
+				DrawFormatString(x * DRAW_BLOCK_WIDTH,
+								 y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
 			}
 			// ÉXÉeÅ[ÉW
 			else if (stage[y][x] == 9)
