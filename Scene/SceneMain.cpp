@@ -9,6 +9,7 @@ SceneMain::SceneMain() :
 	block_x(0),
 	block_y(0),
 	block_y_count(0),
+	block_speed(0),
 	back_img1(-1)
 {
 	//m_pMino = new Mino;
@@ -38,6 +39,7 @@ SceneMain::~SceneMain()
 void SceneMain::init()
 {
 	//m_pMino->init();
+	my_init_var();
 }
 
 // èIóπèàóù
@@ -57,12 +59,18 @@ SceneBase* SceneMain::update()
 	}*/
 
 	// âºÇÃä÷êîîzóÒ
-	my_init_var();
+	
 	my_make_block();
 	my_draw_back();
 	my_draw_variable();
 	my_draw_block();
 	my_draw_stage();
+	my_fall_block();
+
+	if (block_y_count > DRAW_BLOCK_WIDTH * 17) {
+		block_y_count = 0;
+		block_y = 0;
+	}
 
 	if (Pad::isTrigger(PAD_INPUT_2))
 	{
@@ -98,6 +106,7 @@ void SceneMain::my_init_var()
 	block_x = 7;
 	block_y = 0;
 	block_y_count = 0;
+	block_speed = 0.5f;
 
 	back_img1 = LoadGraph("data/back2.jpg");
 }
@@ -144,4 +153,10 @@ void SceneMain::my_draw_stage()
 				y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "Å°");
 		}
 	}
+}
+
+void SceneMain::my_fall_block()
+{
+	block_y_count += block_speed;
+	block_y = block_y_count / DRAW_BLOCK_WIDTH;
 }

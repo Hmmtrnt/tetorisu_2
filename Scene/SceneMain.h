@@ -16,12 +16,14 @@ public:
 	virtual SceneBase* update();	// XVˆ—
 	virtual void draw();			// •`‰æˆ—
 
+	// ‰¼‚ÌŠÖ”
 	void my_init_var();
 	void my_make_block();
 	void my_draw_back();
 	void my_draw_variable();
 	void my_draw_block();
 	void my_draw_stage();
+	void my_fall_block();
 
 private:
 	//Mino* m_pMino;
@@ -32,6 +34,7 @@ private:
 	int block_x;
 	int block_y;
 	float block_y_count;
+	float block_speed;
 
 	int back_img1;
 
