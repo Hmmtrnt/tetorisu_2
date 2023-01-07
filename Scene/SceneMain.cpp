@@ -17,6 +17,7 @@ SceneMain::SceneMain() :
 	clear_flag(0),
 	block_id(0),
 	clear_count(0),
+	turn_point(0),
 	back_img1(-1)
 {
 	//m_pMino = new Mino;
@@ -28,6 +29,15 @@ SceneMain::SceneMain() :
 			block[y][x] = 0;
 		}
 	}
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			turn_block[y][x] = 0;
+		}
+	}
+
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
@@ -145,6 +155,7 @@ void SceneMain::my_init_var()
 	make_block_flag = 1;
 	block_id = 0;
 	clear_count = 0;
+	turn_point = 0;
 
 	back_img1 = LoadGraph("data/back2.jpg");
 
@@ -158,6 +169,7 @@ void SceneMain::my_init_var2()
 	block_y = 0;
 	block_y_count = 0;
 	make_block_flag = 1;
+	turn_point = 0;
 }
 
 // ƒQ[ƒ€ƒI[ƒo[ƒƒS
@@ -194,6 +206,35 @@ void SceneMain::my_gameover()
 	}
 }
 
+// ƒ~ƒm‚Ì‰ñ“]
+void SceneMain::my_turn_right()
+{
+	turn_point++;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			turn_block[y][x] =kMino::blocks[(block_id * BLOCK_HEIGHT) + y][(turn_point % 4 * BLOCK_WIDTH) + x];
+		}
+	}
+
+	my_collision_turn();
+
+	if (collision_flag == 0) {
+		for (int y = 0; y < BLOCK_HEIGHT; y++)
+		{
+			for (int x = 0; x < BLOCK_WIDTH; x++)
+			{
+				block[y][x] = turn_block[y][x];
+			}
+		}
+	}
+	else {
+		turn_point--;
+	}
+}
+
 // ƒ~ƒm‚Ì‘€ì
 void SceneMain::my_move_block()
 {
@@ -224,6 +265,11 @@ void SceneMain::my_move_block()
 			block_y++;
 			block_y_count = (float)block_y * DRAW_BLOCK_WIDTH;
 		}
+	}
+	// ƒ~ƒm‚Ì‰ñ“]
+	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
+	{
+		my_turn_right();
 	}
 }
 
@@ -311,6 +357,23 @@ void SceneMain::my_collision_center()
 			{
 				if (stage[block_y + y][block_x + x] != 0)
 				{
+					collision_flag = 1;
+				}
+			}
+		}
+	}
+}
+
+void SceneMain::my_collision_turn()
+{
+	collision_flag = 0;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			if (turn_block[y][x] != 0) {
+				if (stage[block_y + y][block_x + x] != 0) {
 					collision_flag = 1;
 				}
 			}

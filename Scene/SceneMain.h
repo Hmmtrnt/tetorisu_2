@@ -22,11 +22,13 @@ public:
 	void my_ed();
 	void my_make_block();
 	void my_gameover();
+	void my_turn_right();
 	void my_move_block();
 	void my_collision_left();
 	void my_collision_right();
 	void my_collision_bottom();
 	void my_collision_center();
+	void my_collision_turn();
 	void my_fix_block();
 	void my_search_line();
 	void my_clear_line();
@@ -41,6 +43,7 @@ private:
 	//Mino* m_pMino;
 
 	int block[BLOCK_HEIGHT][BLOCK_WIDTH];
+	int turn_block[BLOCK_HEIGHT][BLOCK_WIDTH];
 	int stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 	int clear_line_point[STAGE_HEIGHT - 3];
@@ -55,6 +58,7 @@ private:
 	int clear_flag;
 	int block_id;
 	int clear_count;
+	int turn_point;
 
 	int back_img1;
 
