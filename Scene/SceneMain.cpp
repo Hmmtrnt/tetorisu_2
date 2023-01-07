@@ -101,6 +101,7 @@ void SceneMain::draw()
 	m_pMino->draw();*/
 }
 
+// 初期化
 void SceneMain::my_init_var()
 {
 	for (int i = 0; i < STAGE_HEIGHT; i++) {
@@ -128,6 +129,7 @@ void SceneMain::my_init_var()
 	back_img1 = LoadGraph("data/back2.jpg");
 }
 
+// 二個目以降の初期化
 void SceneMain::my_init_var2()
 {
 	block_x = 7;
@@ -136,11 +138,13 @@ void SceneMain::my_init_var2()
 	make_block_flag = 1;
 }
 
+// ゲームオーバーロゴ
 void SceneMain::my_ed()
 {
 	DrawFormatString(400, 400, kColor::Color_Black, "GAME OVER");
 }
 
+// ミノの生成
 void SceneMain::my_make_block()
 {
 	if (make_block_flag == 1)
@@ -154,6 +158,7 @@ void SceneMain::my_make_block()
 	}
 }
 
+// ゲームオーバー判定
 void SceneMain::my_gameover()
 {
 	my_collision_center();
@@ -163,8 +168,10 @@ void SceneMain::my_gameover()
 	}
 }
 
+// ミノの操作
 void SceneMain::my_move_block()
 {
+	// 左
 	if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
 	{
 		my_collision_left();
@@ -173,6 +180,7 @@ void SceneMain::my_move_block()
 			block_x--;
 		}
 	}
+	// 右
 	if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
 	{
 		my_collision_right();
@@ -180,6 +188,7 @@ void SceneMain::my_move_block()
 			block_x++;
 		}
 	}
+	// 急降下
 	if (Pad::isPress(PAD_INPUT_DOWN) == 1)
 	{
 		my_collision_bottom();
@@ -190,6 +199,7 @@ void SceneMain::my_move_block()
 	}
 }
 
+// 左の当たり判定
 void SceneMain::my_collision_left()
 {
 	collision_flag = 0;
@@ -210,6 +220,7 @@ void SceneMain::my_collision_left()
 	}
 }
 
+// 右の当たり判定
 void SceneMain::my_collision_right()
 {
 	collision_flag = 0;
@@ -230,6 +241,7 @@ void SceneMain::my_collision_right()
 	}
 }
 
+// 地面の当たり判定
 void SceneMain::my_collision_bottom()
 {
 	collision_flag = 0;
@@ -245,6 +257,7 @@ void SceneMain::my_collision_bottom()
 	}
 }
 
+// 天井の当たり判定
 void SceneMain::my_collision_center()
 {
 	collision_flag = 0;
@@ -260,6 +273,7 @@ void SceneMain::my_collision_center()
 	}
 }
 
+// ミノが地面についた時の処理
 void SceneMain::my_fix_block()
 {
 	my_collision_bottom();
@@ -270,6 +284,7 @@ void SceneMain::my_fix_block()
 	}
 }
 
+// ミノの配列をステージの配列に固定
 void SceneMain::my_save_block()
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
@@ -279,12 +294,13 @@ void SceneMain::my_save_block()
 	}
 }
 
+// 背景追加
 void SceneMain::my_draw_back()
 {
 	DrawGraph(0, 0, back_img1, TRUE);
-
 }
 
+// 変数確認用描画処理
 void SceneMain::my_draw_variable()
 {
 	DrawFormatString(400, 400, kColor::Color_Black, "block_x = %d", block_x);
@@ -292,6 +308,7 @@ void SceneMain::my_draw_variable()
 	DrawFormatString(400, 440, kColor::Color_Black, "block_y_count = %f", block_y_count);
 }
 
+// ミノの描画処理
 void SceneMain::my_draw_block()
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
@@ -304,6 +321,7 @@ void SceneMain::my_draw_block()
 	}
 }
 
+// ステージの描画処理
 void SceneMain::my_draw_stage()
 {
 	for (int y = 0; y < STAGE_HEIGHT - 2; y++)
@@ -329,6 +347,7 @@ void SceneMain::my_draw_stage()
 	}
 }
 
+// ミノがまだ地面についていない時の処理
 void SceneMain::my_fall_block()
 {
 	if (make_block_flag == 0)
