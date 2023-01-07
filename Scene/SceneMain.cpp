@@ -35,6 +35,10 @@ SceneMain::SceneMain() :
 			stage[y][x] = 0;
 		}
 	}
+	for (int y = 0; y < STAGE_HEIGHT - 3; y++)
+	{
+		clear_line_point[y] = 0;
+	}
 }
 
 SceneMain::~SceneMain()
@@ -212,7 +216,7 @@ void SceneMain::my_move_block()
 		my_collision_bottom();
 		if (collision_flag == 0) {
 			block_y++;
-			block_y_count = block_y * DRAW_BLOCK_WIDTH;
+			block_y_count = (float)block_y * DRAW_BLOCK_WIDTH;
 		}
 	}
 }
@@ -423,43 +427,43 @@ void SceneMain::my_draw_block()
 			if (block[y][x] == 1)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
 			}
 			// Iƒ~ƒm
 			else if (block[y][x] == 2)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
 			}
 			// Sƒ~ƒm
 			else if (block[y][x] == 3)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
 			}
 			// Zƒ~ƒm
 			else if (block[y][x] == 4)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
 			}
 			// Jƒ~ƒm
 			else if (block[y][x] == 5)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
 			}
 			// Lƒ~ƒm
 			else if (block[y][x] == 6)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
 			}
 			// Tƒ~ƒm
 			else if (block[y][x] == 7)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
 			}
 		}
 	}
@@ -476,43 +480,43 @@ void SceneMain::my_draw_stage()
 			if (block[y][x] == 1)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
 			}
 			// Iƒ~ƒm
 			else if (block[y][x] == 2)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
 			}
 			// Sƒ~ƒm
 			else if (block[y][x] == 3)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
 			}
 			// Zƒ~ƒm
 			else if (block[y][x] == 4)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
 			}
 			// Jƒ~ƒm
 			else if (block[y][x] == 5)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
 			}
 			// Lƒ~ƒm
 			else if (block[y][x] == 6)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
 			}
 			// Tƒ~ƒm
 			else if (block[y][x] == 7)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
+								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
 			}
 			// ƒXƒe[ƒW
 			else if (stage[y][x] == 9)
@@ -530,6 +534,6 @@ void SceneMain::my_fall_block()
 	if (make_block_flag == 0)
 	{
 		block_y_count += block_speed;
-		block_y = block_y_count / DRAW_BLOCK_WIDTH;
+		block_y = (int)block_y_count / DRAW_BLOCK_WIDTH;
 	}
 }
