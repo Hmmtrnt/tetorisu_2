@@ -27,18 +27,24 @@ void Mino::init()
 	block_x = 7;
 	block_y = 0;
 	block_y_count = 0;
+
+	m_pStage->init();
 }
 
 void Mino::end()
 {
+	m_pStage->end();
 }
 
 void Mino::update()
 {
+	m_pStage->update();
 }
 
 void Mino::draw()
 {
+	// ステージ描画
+	m_pStage->draw();
 }
 
 void Mino::my_make_block()

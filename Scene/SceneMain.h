@@ -1,6 +1,7 @@
 // ƒƒCƒ“‰æ–Ê
 #pragma once
 #include "SceneBase.h"
+#include "common.h"
 
 //class Mino;
 
@@ -15,6 +16,23 @@ public:
 	virtual SceneBase* update();	// XVˆ—
 	virtual void draw();			// •`‰æˆ—
 
+	void my_init_var();
+	void my_make_block();
+	void my_draw_back();
+	void my_draw_variable();
+	void my_draw_block();
+	void my_draw_stage();
+
 private:
 	//Mino* m_pMino;
+
+	int block[BLOCK_HEIGHT][BLOCK_WIDTH];
+	int stage[STAGE_HEIGHT][STAGE_WIDTH];
+
+	int block_x;
+	int block_y;
+	float block_y_count;
+
+	int back_img1;
+
 };

@@ -48,6 +48,7 @@ void Stage::update()
 void Stage::draw()
 {
 	DrawGraph(0, 0, m_backHandle, true);
+	my_draw_stage();
 }
 
 void Stage::my_draw_stage()
