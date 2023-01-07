@@ -10,6 +10,7 @@ SceneMain::SceneMain() :
 	block_y(0),
 	block_y_count(0),
 	block_speed(0),
+	collision_flag(0),
 	back_img1(-1)
 {
 	//m_pMino = new Mino;
@@ -61,6 +62,7 @@ SceneBase* SceneMain::update()
 	// âºÇÃä÷êîîzóÒ
 	
 	my_make_block();
+	my_move_block();
 	my_draw_back();
 	my_draw_variable();
 	my_draw_block();
@@ -107,6 +109,7 @@ void SceneMain::my_init_var()
 	block_y = 0;
 	block_y_count = 0;
 	block_speed = 0.5f;
+	collision_flag = 0;
 
 	back_img1 = LoadGraph("data/back2.jpg");
 }
@@ -116,6 +119,65 @@ void SceneMain::my_make_block()
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
 		for (int x = 0; x < BLOCK_WIDTH; x++) {
 			block[y][x] = kMino::blocks[y][x];
+		}
+	}
+}
+
+void SceneMain::my_move_block()
+{
+	if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
+	{
+		my_collision_left();
+		if (collision_flag == 0) 
+		{
+			block_x--;
+		}
+	}
+	if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
+	{
+		my_collision_right();
+		if (collision_flag == 0) {
+			block_x++;
+		}
+	}
+}
+
+void SceneMain::my_collision_left()
+{
+	collision_flag = 0;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (block[y][x] != 0) {
+				if (stage[block_y + y][block_x + (x - 1)] != 0) {
+					collision_flag = 1;
+				}
+				else if ((int)(block_y_count - (block_y * DRAW_BLOCK_WIDTH)) > 0) {
+					if (stage[block_y + (y + 1)][block_x + (x - 1)] != 0) {
+						collision_flag = 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+void SceneMain::my_collision_right()
+{
+	collision_flag = 0;
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++) {
+		for (int x = 0; x < BLOCK_WIDTH; x++) {
+			if (block[y][x] != 0) {
+				if (stage[block_y + y][block_x + (x + 1)] != 0) {
+					collision_flag = 1;
+				}
+				else if ((int)(block_y_count - (block_y * DRAW_BLOCK_WIDTH)) > 0) {
+					if (stage[block_y + (y + 1)][block_x + (x + 1)] != 0) {
+						collision_flag = 1;
+					}
+				}
+			}
 		}
 	}
 }

@@ -19,6 +19,9 @@ public:
 	// âºÇÃä÷êî
 	void my_init_var();
 	void my_make_block();
+	void my_move_block();
+	void my_collision_left();
+	void my_collision_right();
 	void my_draw_back();
 	void my_draw_variable();
 	void my_draw_block();
@@ -35,6 +38,7 @@ private:
 	int block_y;
 	float block_y_count;
 	float block_speed;
+	int collision_flag;
 
 	int back_img1;
 
