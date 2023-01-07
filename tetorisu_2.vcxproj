@@ -140,25 +140,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mino.cpp" />
+    <ClCompile Include="Object\Mino.cpp" />
+    <ClCompile Include="Object\Stage.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneMain.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="Mino.h" />
+    <ClInclude Include="Object\Mino.h" />
+    <ClInclude Include="Object\Stage.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneMain.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
-    <ClInclude Include="Stage.h" />
+    <ClInclude Include="Util\common.h" />
     <ClInclude Include="Util\Pad.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
