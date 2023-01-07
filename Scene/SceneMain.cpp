@@ -2,8 +2,8 @@
 #include "SceneResult.h"
 #include "DxLib.h"
 #include "Pad.h"
-//#include "mino.h"
-//#include "stage.h"
+//#include "Mino.h"
+//#include "Stage.h"
 
 SceneMain::SceneMain()
 {

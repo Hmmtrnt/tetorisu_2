@@ -17,11 +17,17 @@ public:
 	// 描画処理
 	void draw();
 
+	void my_draw_back();
+
+	
+
 	// ステージの配列
 	int stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 private:
 	// 背景のハンドル
 	int m_backHandle;
+
+	
 };
 
