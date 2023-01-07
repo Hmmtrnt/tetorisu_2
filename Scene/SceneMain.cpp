@@ -423,45 +423,44 @@ void SceneMain::my_draw_block()
 			if (block[y][x] == 1)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
 			}
 			// IÉ~Ém
 			else if (block[y][x] == 2)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
 			}
 			// SÉ~Ém
 			else if (block[y][x] == 3)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
 			}
 			// ZÉ~Ém
 			else if (block[y][x] == 4)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
 			}
 			// JÉ~Ém
 			else if (block[y][x] == 5)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
 			}
 			// LÉ~Ém
 			else if (block[y][x] == 6)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
 			}
 			// TÉ~Ém
 			else if (block[y][x] == 7)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
 			}
-				
 		}
 	}
 }
@@ -473,16 +472,49 @@ void SceneMain::my_draw_stage()
 	{
 		for (int x = 2; x < STAGE_WIDTH - 2; x++)
 		{
-			if (stage[y][x] == 1)
+			// OÉ~Ém
+			if (block[y][x] == 1)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-								 y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
 			}
-			else if (stage[y][x] == 2)
+			// IÉ~Ém
+			else if (block[y][x] == 2)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-								 y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
 			}
+			// SÉ~Ém
+			else if (block[y][x] == 3)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
+			}
+			// ZÉ~Ém
+			else if (block[y][x] == 4)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
+			}
+			// JÉ~Ém
+			else if (block[y][x] == 5)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
+			}
+			// LÉ~Ém
+			else if (block[y][x] == 6)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
+			}
+			// TÉ~Ém
+			else if (block[y][x] == 7)
+			{
+				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+								 block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
+			}
+			// ÉXÉeÅ[ÉW
 			else if (stage[y][x] == 9)
 			{
 				DrawFormatString(x * DRAW_BLOCK_WIDTH,
