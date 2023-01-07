@@ -89,13 +89,14 @@ SceneBase* SceneMain::update()
 		my_draw_variable();
 		my_draw_stage();
 	}
-
+	// ƒQ[ƒ€ƒI[ƒo[‚Ìˆ—
 	if (gameover_flag == 1)
 	{
 		my_draw_back();
 		my_draw_block();
 		my_draw_stage();
 		my_ed();
+		//return (new SceneResult);
 	}
 
 	/*if (block_y_count > DRAW_BLOCK_WIDTH * 17) {
@@ -477,43 +478,43 @@ void SceneMain::my_draw_stage()
 		for (int x = 2; x < STAGE_WIDTH - 2; x++)
 		{
 			// Oƒ~ƒm
-			if (block[y][x] == 1)
+			if (stage[y][x] == 1)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
 			}
 			// Iƒ~ƒm
-			else if (block[y][x] == 2)
+			else if (stage[y][x] == 2)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
 			}
 			// Sƒ~ƒm
-			else if (block[y][x] == 3)
+			else if (stage[y][x] == 3)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
 			}
 			// Zƒ~ƒm
-			else if (block[y][x] == 4)
+			else if (stage[y][x] == 4)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
 			}
 			// Jƒ~ƒm
-			else if (block[y][x] == 5)
+			else if (stage[y][x] == 5)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
 			}
 			// Lƒ~ƒm
-			else if (block[y][x] == 6)
+			else if (stage[y][x] == 6)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
 			}
 			// Tƒ~ƒm
-			else if (block[y][x] == 7)
+			else if (stage[y][x] == 7)
 			{
 				DrawFormatString(block_x * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
 								(int)block_y_count + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
