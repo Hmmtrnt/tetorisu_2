@@ -46,9 +46,14 @@ void Stage::draw()
 	my_draw_stage();
 }
 
+//void Stage::my_draw_back()
+//{
+//	DrawGraph(0, 0, m_backHandle, TRUE);
+//}
 
 void Stage::my_draw_stage()
 {
+	//my_draw_back();
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)

@@ -39,19 +39,54 @@ void GameManager::init()
 	gameover_flag = 0;
 	collision_flag = 0;
 	turn_point = 0;
+	clear_count = 0;
 	back_img1 = LoadGraph("data/back2.jpg");
+
+	m_pMino->init();
+	m_pStage->init();
 }
 
 void GameManager::end()
 {
+	m_pStage->end();
 }
 
 void GameManager::update()
 {
+	// 仮の関数配列
+	if (clear_flag == 0)
+	{
+		m_pMino->my_make_block();
+		my_gameover();
+		my_move_block();
+		my_draw_back();
+		my_draw_variable();
+		m_pMino->my_draw_block();
+		m_pStage->my_draw_stage();
+		my_fix_block();
+		m_pMino->my_fall_block();
+	}
+	else
+	{
+		my_clear_line();
+		my_draw_back();
+		my_draw_variable();
+		m_pStage->my_draw_stage();
+	}
+	// ゲームオーバーの処理
+	if (gameover_flag == 1)
+	{
+		my_draw_back();
+		m_pMino->my_draw_block();
+		m_pStage->my_draw_stage();
+		my_ed();
+		//return (new SceneResult);
+	}
 }
 
 void GameManager::draw()
 {
+	//m_pMino->my_make_block();
 }
 
 void GameManager::my_init_var2()
@@ -108,9 +143,12 @@ void GameManager::my_collision_right()
 {
 	collision_flag = 0;
 
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
-			if (m_pMino->block[y][x] != 0) {
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			if (m_pMino->block[y][x] != 0)
+			{
 				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + (x + 1)] != 0)
 				{
 					collision_flag = 1;
@@ -173,8 +211,10 @@ void GameManager::my_collision_turn()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (turn_block[y][x] != 0) {
-				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + x] != 0) {
+			if (turn_block[y][x] != 0)
+			{
+				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + x] != 0)
+				{
 					collision_flag = 1;
 				}
 			}
@@ -196,7 +236,8 @@ void GameManager::my_turn_right()
 
 	my_collision_turn();
 
-	if (collision_flag == 0) {
+	if (collision_flag == 0)
+	{
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
@@ -205,7 +246,8 @@ void GameManager::my_turn_right()
 			}
 		}
 	}
-	else {
+	else
+	{
 		turn_point--;
 	}
 }
@@ -264,8 +306,10 @@ void GameManager::my_move_block()
 
 void GameManager::my_save_block()
 {
-	for (int y = 0; y < BLOCK_HEIGHT; y++) {
-		for (int x = 0; x < BLOCK_WIDTH; x++) {
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
 			m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + x] += m_pMino->block[y][x];
 		}
 	}
@@ -305,7 +349,8 @@ void GameManager::my_clear_line()
 	int remain_line_point[20] = { 0 };
 	int remain_line_index = 0;
 
-	if (clear_count < 10) {
+	if (clear_count < 10) 
+	{
 		for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 		{
 			if (clear_line_point[i] == 0)
@@ -315,7 +360,8 @@ void GameManager::my_clear_line()
 		}
 		clear_count++;
 	}
-	else {
+	else
+	{
 		for (int i = STAGE_HEIGHT - 2; i >= 0; i--)
 		{
 			if (clear_line_point[i] != 0)

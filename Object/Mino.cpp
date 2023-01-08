@@ -31,7 +31,8 @@ void Mino::init()
 	block_y = 0;
 	block_y_count = 0;
 	block_speed = 0.5f;
-	
+	make_block_flag = 1;
+	block_id = 0;
 
 	srand((unsigned)time(NULL));
 }

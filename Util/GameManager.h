@@ -38,9 +38,11 @@ public:
 	void my_draw_back();
 	void my_draw_variable();
 
+	int gameover_flag;
+
 private:
 
-	int gameover_flag;
+	
 	int collision_flag;
 	int turn_point;
 	int turn_block[BLOCK_HEIGHT][BLOCK_WIDTH];

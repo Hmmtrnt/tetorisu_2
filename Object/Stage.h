@@ -19,7 +19,7 @@ public:
 
 	// 仮の関数
 	
-	
+	//void my_draw_back();
 	void my_draw_stage();
 
 	// ステージの配列
