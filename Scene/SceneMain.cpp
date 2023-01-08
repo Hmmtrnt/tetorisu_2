@@ -206,7 +206,7 @@ void SceneMain::my_gameover()
 	}
 }
 
-// ミノの回転
+// ミノの回転　ミノ
 void SceneMain::my_turn_right()
 {
 	turn_point++;
@@ -235,7 +235,7 @@ void SceneMain::my_turn_right()
 	}
 }
 
-// ミノの操作
+// ミノの操作　ミノ
 void SceneMain::my_move_block()
 {
 	// 左
@@ -273,7 +273,7 @@ void SceneMain::my_move_block()
 	}
 }
 
-// 左の当たり判定
+// 左の当たり判定　ステージ
 void SceneMain::my_collision_left()
 {
 	collision_flag = 0;
@@ -300,7 +300,7 @@ void SceneMain::my_collision_left()
 	}
 }
 
-// 右の当たり判定
+// 右の当たり判定　ステージ
 void SceneMain::my_collision_right()
 {
 	collision_flag = 0;
@@ -324,7 +324,7 @@ void SceneMain::my_collision_right()
 	}
 }
 
-// 地面の当たり判定
+// 地面の当たり判定　ステージ
 void SceneMain::my_collision_bottom()
 {
 	collision_flag = 0;
@@ -344,7 +344,7 @@ void SceneMain::my_collision_bottom()
 	}
 }
 
-// 天井の当たり判定
+// 天井の当たり判定　ステージ
 void SceneMain::my_collision_center()
 {
 	collision_flag = 0;
@@ -364,6 +364,7 @@ void SceneMain::my_collision_center()
 	}
 }
 
+// ミノの回転した時の当たり判定　ミノ
 void SceneMain::my_collision_turn()
 {
 	collision_flag = 0;
@@ -381,7 +382,7 @@ void SceneMain::my_collision_turn()
 	}
 }
 
-// ミノが地面についた時の処理
+// ミノが地面についた時の処理　ミノ
 void SceneMain::my_fix_block()
 {
 	my_collision_bottom();
@@ -397,6 +398,7 @@ void SceneMain::my_fix_block()
 	}
 }
 
+// 揃った列を調べる　ステージ
 void SceneMain::my_search_line()
 {
 	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
@@ -426,6 +428,7 @@ void SceneMain::my_search_line()
 	}
 }
 
+// 揃ったらミノを消去そしてミノを一列下げる　ステージ
 void SceneMain::my_clear_line()
 {
 	int remain_line_point[20] = { 0 };
@@ -467,7 +470,7 @@ void SceneMain::my_clear_line()
 	}
 }
 
-// ミノの配列をステージの配列に固定
+// ミノの配列をステージの配列に固定　ステージ
 void SceneMain::my_save_block()
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++) {
@@ -477,13 +480,13 @@ void SceneMain::my_save_block()
 	}
 }
 
-// 背景描画
+// 背景描画　ステージ
 void SceneMain::my_draw_back()
 {
 	DrawGraph(0, 0, back_img1, TRUE);
 }
 
-// 変数確認用描画処理
+// 変数確認用描画処理　ミノ
 void SceneMain::my_draw_variable()
 {
 	DrawFormatString(400, 400, kColor::Color_Black, "block_x = %d", block_x);
@@ -491,7 +494,7 @@ void SceneMain::my_draw_variable()
 	DrawFormatString(400, 440, kColor::Color_Black, "block_y_count = %f", block_y_count);
 }
 
-// ミノの描画処理
+// ミノの描画処理　ミノ
 void SceneMain::my_draw_block()
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
@@ -544,7 +547,7 @@ void SceneMain::my_draw_block()
 	}
 }
 
-// ステージの描画処理
+// ステージの描画処理　ステージ
 void SceneMain::my_draw_stage()
 {
 	for (int y = 0; y < STAGE_HEIGHT - 2; y++)
@@ -603,7 +606,7 @@ void SceneMain::my_draw_stage()
 	}
 }
 
-// ミノがまだ地面についていない時の処理
+// ミノがまだ地面についていない時の処理　ミノ
 void SceneMain::my_fall_block()
 {
 	if (make_block_flag == 0)
