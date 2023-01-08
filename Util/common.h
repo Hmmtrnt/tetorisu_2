@@ -17,6 +17,7 @@
 // 描画するミノ同士の幅
 #define DRAW_BLOCK_WIDTH 20
 
+// ミノの配列
 namespace kMino
 {
 	constexpr int blocks[BLOCK_HEIGHT * BLOCK_TYPE][BLOCK_WIDTH * BLOCK_ROTATE_TYPE] = {
@@ -58,6 +59,7 @@ namespace kMino
 	};
 }
 
+// 色
 namespace kColor
 {
 	// ミノ
@@ -73,13 +75,14 @@ namespace kColor
 	const int Color_Black = GetColor(0, 0, 0);			// 黒
 }
 
+// フェード処理関係
 namespace kFade
 {
 	// フェード
-	constexpr int kFadeBright = 0;		// 処理
-	constexpr int kFadeSpeed = 5;		// 速度
+	constexpr int Bright = 0;		// 処理
+	constexpr int Speed = 5;		// 速度
 	// 描画輝度
-	constexpr int kRedBright = 255;		// 赤
-	constexpr int kGreenBright = 255;	// 緑
-	constexpr int kBlueBright = 255;	// 青
+	constexpr int RedBright = 255;		// 赤
+	constexpr int GreenBright = 255;	// 緑
+	constexpr int BlueBright = 255;	// 青
 }
