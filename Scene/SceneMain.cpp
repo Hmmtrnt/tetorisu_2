@@ -102,11 +102,11 @@ SceneBase* SceneMain::update()
 	// ゲームオーバーの処理
 	if (gameover_flag == 1)
 	{
-		my_draw_back();
+		/*my_draw_back();
 		my_draw_block();
 		my_draw_stage();
-		my_ed();
-		//return (new SceneResult);
+		my_ed();*/
+		return (new SceneResult);
 	}
 
 	/*if (block_y_count > DRAW_BLOCK_WIDTH * 17) {
