@@ -72,3 +72,14 @@ namespace kColor
 	// ステージ
 	const int Color_Black = GetColor(0, 0, 0);			// 黒
 }
+
+namespace kFade
+{
+	// フェード
+	constexpr int kFadeBright = 0;		// 処理
+	constexpr int kFadeSpeed = 5;		// 速度
+	// 描画輝度
+	constexpr int kRedBright = 255;		// 赤
+	constexpr int kGreenBright = 255;	// 緑
+	constexpr int kBlueBright = 255;	// 青
+}

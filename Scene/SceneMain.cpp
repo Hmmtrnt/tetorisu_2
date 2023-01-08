@@ -2,13 +2,12 @@
 #include "SceneResult.h"
 #include "DxLib.h"
 #include "Pad.h"
-#include <time.h>
 #include "GameManager.h"
 
-SceneMain::SceneMain()
+SceneMain::SceneMain() :
+	m_fadeBright(0),
+	m_fadeSpeed(0)
 {
-
-	
 	m_pManager = new GameManager;
 }
 

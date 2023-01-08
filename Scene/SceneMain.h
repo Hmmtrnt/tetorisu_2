@@ -18,6 +18,11 @@ public:
 
 private:
 
+	// フェード処理
+	int m_fadeBright;
+	// フェード速度
+	int m_fadeSpeed;
+
 	GameManager* m_pManager;
 	
 };
