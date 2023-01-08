@@ -11,8 +11,8 @@
 #define BLOCK_ROTATE_TYPE 4
 
 // ステージの幅
-#define STAGE_HEIGHT 23		// 縦
-#define STAGE_WIDTH 18		// 横
+#define STAGE_HEIGHT 21		// 縦
+#define STAGE_WIDTH 12		// 横
 
 // 描画するミノ同士の幅
 #define DRAW_BLOCK_WIDTH 20

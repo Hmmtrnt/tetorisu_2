@@ -46,7 +46,7 @@ private:
 	int turn_block[BLOCK_HEIGHT][BLOCK_WIDTH];
 	int stage[STAGE_HEIGHT][STAGE_WIDTH];
 
-	int clear_line_point[STAGE_HEIGHT - 3];
+	int clear_line_point[STAGE_HEIGHT - 1];
 
 	int block_x;
 	int block_y;

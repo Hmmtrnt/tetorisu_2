@@ -17,10 +17,15 @@ public:
 	// 描画処理
 	void draw();
 
+	// 仮の関数
+	
+	
 	void my_draw_stage();
 
 	// ステージの配列
 	int stage[STAGE_HEIGHT][STAGE_WIDTH];
+
+	
 
 private:
 	// 背景のハンドル

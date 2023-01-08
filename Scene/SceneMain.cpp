@@ -45,7 +45,7 @@ SceneMain::SceneMain() :
 			stage[y][x] = 0;
 		}
 	}
-	for (int y = 0; y < STAGE_HEIGHT - 3; y++)
+	for (int y = 0; y < STAGE_HEIGHT - 1; y++)
 	{
 		clear_line_point[y] = 0;
 	}
@@ -132,17 +132,11 @@ void SceneMain::draw()
 // 初期化　ミノとステージ
 void SceneMain::my_init_var()
 {
-	for (int i = 0; i < STAGE_HEIGHT; i++) {
-		for (int j = 0; j < STAGE_WIDTH; j++) {
-			stage[i][0] = 9;
-			stage[i][1] = 9;
-			stage[i][2] = 9;
-			stage[20][j] = 9;
-			stage[21][j] = 9;
-			stage[22][j] = 9;
-			stage[i][15] = 9;
-			stage[i][16] = 9;
-			stage[i][17] = 9;
+	for (int y = 0; y < STAGE_HEIGHT; y++) {
+		for (int x = 0; x < STAGE_WIDTH; x++) {
+			stage[y][0] = 9;
+			stage[y][11] = 9;
+			stage[20][x] = 9;
 		}
 	}
 
@@ -172,7 +166,7 @@ void SceneMain::my_init_var2()
 	turn_point = 0;
 }
 
-// ゲームオーバーロゴ
+// ゲームオーバーロゴ１
 void SceneMain::my_ed()
 {
 	DrawFormatString(400, 400, kColor::Color_Black, "GAME OVER");
@@ -195,7 +189,7 @@ void SceneMain::my_make_block()
 	}
 }
 
-// ゲームオーバー判定　ステージ
+// ゲームオーバー判定　マネージャー
 void SceneMain::my_gameover()
 {
 	my_collision_center();
@@ -235,7 +229,7 @@ void SceneMain::my_turn_right()
 	}
 }
 
-// ミノの操作　ミノ
+// ミノの操作　マネージャー
 void SceneMain::my_move_block()
 {
 	// 左
@@ -401,14 +395,14 @@ void SceneMain::my_fix_block()
 // 揃った列を調べる　ステージ
 void SceneMain::my_search_line()
 {
-	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
 		clear_line_point[i] = 0;
 	}
 
-	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
-		for (int j = 3; j < STAGE_WIDTH - 3; j++)
+		for (int j = 1; j < STAGE_WIDTH - 1; j++)
 		{
 			if (stage[i][j] == 0)
 			{
@@ -418,7 +412,7 @@ void SceneMain::my_search_line()
 		}
 	}
 
-	for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
 		if (clear_line_point[i] == 0)
 		{
@@ -434,18 +428,18 @@ void SceneMain::my_clear_line()
 	int remain_line_point[20] = { 0 };
 	int remain_line_index = 0;
 
-	if (clear_count < 12) {
-		for (int i = 0; i < STAGE_HEIGHT - 3; i++)
+	if (clear_count < 10) {
+		for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 		{
 			if (clear_line_point[i] == 0)
 			{
-				stage[i][clear_count + 3] = 0;
+				stage[i][clear_count + 1] = 0;
 			}
 		}
 		clear_count++;
 	}
 	else {
-		for (int i = STAGE_HEIGHT - 4; i >= 0; i--)
+		for (int i = STAGE_HEIGHT - 2; i >= 0; i--)
 		{
 			if (clear_line_point[i] != 0)
 			{
@@ -455,11 +449,11 @@ void SceneMain::my_clear_line()
 		}
 
 		remain_line_index = 0;
-		for (int i = STAGE_HEIGHT - 4; i >= 0; i--)
+		for (int y = STAGE_HEIGHT - 2; y >= 0; y--)
 		{
-			for (int j = 3; j < STAGE_WIDTH - 3; j++)
+			for (int x = 1; x < STAGE_WIDTH - 1; x++)
 			{
-				stage[i][j] = stage[remain_line_point[remain_line_index]][j];
+				stage[y][x] = stage[remain_line_point[remain_line_index]][x];
 			}
 			remain_line_index++;
 		}
@@ -550,9 +544,9 @@ void SceneMain::my_draw_block()
 // ステージの描画処理　ステージ
 void SceneMain::my_draw_stage()
 {
-	for (int y = 0; y < STAGE_HEIGHT - 2; y++)
+	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
-		for (int x = 2; x < STAGE_WIDTH - 2; x++)
+		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
 			// Oミノ
 			if (stage[y][x] == 1)

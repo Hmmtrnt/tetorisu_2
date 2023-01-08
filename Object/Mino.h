@@ -2,8 +2,6 @@
 #pragma once
 #include "common.h"
 
-class Stage;
-
 class Mino
 {
 public:
@@ -19,23 +17,19 @@ public:
 	// 描画
 	void draw();
 
+	// 仮の関数
+	
 	void my_make_block();
-
-	void my_draw_variable();
-
 	void my_draw_block();
-private:
-
-	int block[BLOCK_HEIGHT][BLOCK_WIDTH];
+	void my_fall_block();
 
 	int block_x;
-
 	int block_y;
-
-
 	float block_y_count;
+	int make_block_flag;
+	int block_id;
+	int block[BLOCK_HEIGHT][BLOCK_WIDTH];
 
-	// ステージのポインタ
-	Stage* m_pStage;
+private:
+	float block_speed;
 };
-
