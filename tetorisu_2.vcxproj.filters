@@ -60,6 +60,9 @@
     <ClCompile Include="Object\Stage.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Util\GameManager.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -90,6 +93,9 @@
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Util\common.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\GameManager.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
   </ItemGroup>

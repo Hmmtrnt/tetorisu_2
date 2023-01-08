@@ -129,7 +129,7 @@ void SceneMain::draw()
 	m_pMino->draw();*/
 }
 
-// 初期化
+// 初期化　ミノとステージ
 void SceneMain::my_init_var()
 {
 	for (int i = 0; i < STAGE_HEIGHT; i++) {
@@ -162,7 +162,7 @@ void SceneMain::my_init_var()
 	srand((unsigned)time(NULL));
 }
 
-// 二個目以降の初期化
+// 二個目以降の初期化　ミノ
 void SceneMain::my_init_var2()
 {
 	block_x = 7;
@@ -178,7 +178,7 @@ void SceneMain::my_ed()
 	DrawFormatString(400, 400, kColor::Color_Black, "GAME OVER");
 }
 
-// ミノの生成
+// ミノの生成　ミノ
 void SceneMain::my_make_block()
 {
 	if (make_block_flag == 1)
@@ -195,7 +195,7 @@ void SceneMain::my_make_block()
 	}
 }
 
-// ゲームオーバー判定
+// ゲームオーバー判定　ステージ
 void SceneMain::my_gameover()
 {
 	my_collision_center();

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Util\GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Mino.cpp" />
     <ClCompile Include="Object\Stage.cpp" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
+    <ClInclude Include="Util\GameManager.h" />
     <ClInclude Include="Object\Mino.h" />
     <ClInclude Include="Object\Stage.h" />
     <ClInclude Include="Scene\SceneBase.h" />
