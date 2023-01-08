@@ -13,4 +13,10 @@ public:
 	virtual void draw();			// 描画
 
 private:
+
+	// フェード処理
+	int m_fadeBright;
+	// フェード速度
+	int m_fadeSpeed;
+
 };
