@@ -56,30 +56,27 @@ void GameManager::update()
 	// 仮の関数配列
 	if (clear_flag == 0)
 	{
-		m_pMino->my_make_block();
+		m_pMino->makeMino();
 		my_gameover();
 		my_move_block();
 		my_draw_back();
-		//my_draw_variable();
-		m_pMino->my_draw_block();
-		m_pStage->my_draw_stage();
+		m_pMino->drawMino();
+		m_pStage->drawStage();
 		my_fix_block();
-		m_pMino->my_fall_block();
+		m_pMino->fallMino();
 	}
 	else
 	{
 		my_clear_line();
 		my_draw_back();
-		//my_draw_variable();
-		m_pStage->my_draw_stage();
+		m_pStage->drawStage();
 	}
 	// ゲームオーバーの処理
 	if (gameover_flag == 1)
 	{
 		my_draw_back();
-		m_pMino->my_draw_block();
-		m_pStage->my_draw_stage();
-		my_ed();
+		m_pMino->drawMino();
+		m_pStage->drawStage();
 		//return (new SceneResult);
 	}
 }
@@ -91,10 +88,10 @@ void GameManager::draw()
 
 void GameManager::my_init_var2()
 {
-	m_pMino->block_x = 5;
-	m_pMino->block_y = -1;
-	m_pMino->block_y_count = 0;
-	m_pMino->make_block_flag = 1;
+	m_pMino->m_minoX = 5;
+	m_pMino->m_minoY = -1;
+	m_pMino->m_minoFlameY = 0;
+	m_pMino->m_makeMinoFlag = true;
 	turn_point = 0;
 }
 
@@ -121,15 +118,15 @@ void GameManager::my_collision_left()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->block[y][x] != 0)
+			if (m_pMino->m_minoSave[y][x] != 0)
 			{
-				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + (x - 1)] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x - 1)] != 0)
 				{
 					collision_flag = 1;
 				}
-				else if ((int)(m_pMino->block_y_count - (m_pMino->block_y * DRAW_BLOCK_WIDTH)) > 0)
+				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0)
 				{
-					if (m_pStage->stage[m_pMino->block_y + (y + 1)][m_pMino->block_x + (x - 1)] != 0)
+					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x - 1)] != 0)
 					{
 						collision_flag = 1;
 					}
@@ -147,15 +144,15 @@ void GameManager::my_collision_right()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->block[y][x] != 0)
+			if (m_pMino->m_minoSave[y][x] != 0)
 			{
-				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + (x + 1)] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x + 1)] != 0)
 				{
 					collision_flag = 1;
 				}
-				else if ((int)(m_pMino->block_y_count - (m_pMino->block_y * DRAW_BLOCK_WIDTH)) > 0)
+				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0)
 				{
-					if (m_pStage->stage[m_pMino->block_y + (y + 1)][m_pMino->block_x + (x + 1)] != 0)
+					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x + 1)] != 0)
 					{
 						collision_flag = 1;
 					}
@@ -173,9 +170,9 @@ void GameManager::my_collision_bottom()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->block[y][x] != 0)
+			if (m_pMino->m_minoSave[y][x] != 0)
 			{
-				if (m_pStage->stage[m_pMino->block_y + (y + 1)][m_pMino->block_x + x] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0)
 				{
 					collision_flag = 1;
 				}
@@ -192,9 +189,9 @@ void GameManager::my_collision_center()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->block[y][x] != 0)
+			if (m_pMino->m_minoSave[y][x] != 0)
 			{
-				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + x] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
 					collision_flag = 1;
 				}
@@ -213,7 +210,7 @@ void GameManager::my_collision_turn()
 		{
 			if (turn_block[y][x] != 0)
 			{
-				if (m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + x] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
 					collision_flag = 1;
 				}
@@ -230,7 +227,7 @@ void GameManager::my_turn_right()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			turn_block[y][x] = kMino::blocks[(m_pMino->block_id * BLOCK_HEIGHT) + y][(turn_point % 4 * BLOCK_WIDTH) + x];
+			turn_block[y][x] = kMino::blocks[(m_pMino->m_minoId * BLOCK_HEIGHT) + y][(turn_point % 4 * BLOCK_WIDTH) + x];
 		}
 	}
 
@@ -242,7 +239,7 @@ void GameManager::my_turn_right()
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
-				m_pMino->block[y][x] = turn_block[y][x];
+				m_pMino->m_minoSave[y][x] = turn_block[y][x];
 			}
 		}
 	}
@@ -275,7 +272,7 @@ void GameManager::my_move_block()
 		my_collision_left();
 		if (collision_flag == 0)
 		{
-			m_pMino->block_x--;
+			m_pMino->m_minoX--;
 		}
 	}
 	// 右
@@ -284,7 +281,7 @@ void GameManager::my_move_block()
 		my_collision_right();
 		if (collision_flag == 0)
 		{
-			m_pMino->block_x++;
+			m_pMino->m_minoX++;
 		}
 	}
 	// 急降下
@@ -293,8 +290,8 @@ void GameManager::my_move_block()
 		my_collision_bottom();
 		if (collision_flag == 0)
 		{
-			m_pMino->block_y++;
-			m_pMino->block_y_count += DRAW_BLOCK_WIDTH;
+			m_pMino->m_minoY++;
+			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
 		}
 	}
 
@@ -311,7 +308,7 @@ void GameManager::my_save_block()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			m_pStage->stage[m_pMino->block_y + y][m_pMino->block_x + x] += m_pMino->block[y][x];
+			m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] += m_pMino->m_minoSave[y][x];
 		}
 	}
 }
@@ -327,7 +324,7 @@ void GameManager::my_search_line()
 	{
 		for (int j = 1; j < STAGE_WIDTH - 1; j++)
 		{
-			if (m_pStage->stage[i][j] == 0)
+			if (m_pStage->m_stage[i][j] == 0)
 			{
 				clear_line_point[i] = 1;
 				break;
@@ -356,7 +353,7 @@ void GameManager::my_clear_line()
 		{
 			if (clear_line_point[i] == 0)
 			{
-				m_pStage->stage[i][clear_count + 1] = 0;
+				m_pStage->m_stage[i][clear_count + 1] = 0;
 			}
 		}
 		clear_count++;
@@ -377,7 +374,7 @@ void GameManager::my_clear_line()
 		{
 			for (int x = 1; x < STAGE_WIDTH - 1; x++)
 			{
-				m_pStage->stage[y][x] = m_pStage->stage[remain_line_point[remain_line_index]][x];
+				m_pStage->m_stage[y][x] = m_pStage->m_stage[remain_line_point[remain_line_index]][x];
 			}
 			remain_line_index++;
 		}
@@ -395,7 +392,7 @@ void GameManager::my_draw_back()
 
 void GameManager::my_draw_variable()
 {
-	DrawFormatString(450, 400, kColor::Color_Black, "block_x = %d", m_pMino->block_x);
-	DrawFormatString(450, 420, kColor::Color_Black, "block_y = %d", m_pMino->block_y);
-	DrawFormatString(450, 440, kColor::Color_Black, "block_y_count = %f", m_pMino->block_y_count);
+	DrawFormatString(450, 400, kColor::Color_Black, "block_x = %d", m_pMino->m_minoX);
+	DrawFormatString(450, 420, kColor::Color_Black, "block_y = %d", m_pMino->m_minoY);
+	DrawFormatString(450, 440, kColor::Color_Black, "block_y_count = %f", m_pMino->m_minoFlameY);
 }

@@ -7,7 +7,7 @@ Stage::Stage() :
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
-			stage[y][x] = 0;
+			m_stage[y][x] = 0;
 		}
 	}
 }
@@ -16,13 +16,14 @@ Stage::~Stage()
 {
 }
 
+// ‰Šú‰»
 void Stage::init()
 {
 	for (int y = 0; y < STAGE_HEIGHT; y++) {
 		for (int x = 0; x < STAGE_WIDTH; x++) {
-			stage[y][0] = 9;
-			stage[y][11] = 9;
-			stage[20][x] = 9;
+			m_stage[y][0] = 9;
+			m_stage[y][11] = 9;
+			m_stage[20][x] = 9;
 		}
 	}
 
@@ -31,27 +32,21 @@ void Stage::init()
 	m_backHandle = LoadGraph("data/back2.jpg");
 }
 
+// I—¹ˆ—
 void Stage::end()
 {
 	DeleteGraph(m_backHandle);
 }
 
-void Stage::update()
-{
-}
-
+// •`‰æˆ—
 void Stage::draw()
 {
 	DrawGraph(0, 0, m_backHandle, true);
-	my_draw_stage();
+	drawStage();
 }
 
-//void Stage::my_draw_back()
-//{
-//	DrawGraph(0, 0, m_backHandle, TRUE);
-//}
-
-void Stage::my_draw_stage()
+// ƒXƒe[ƒW‚Ì•`‰æ
+void Stage::drawStage()
 {
 	//my_draw_back();
 	for (int y = 0; y < STAGE_HEIGHT; y++)
@@ -59,49 +54,49 @@ void Stage::my_draw_stage()
 		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
 			// Oƒ~ƒm
-			if (stage[y][x] == 1)
+			if (m_stage[y][x] == 1)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
 			}
 			// Iƒ~ƒm
-			else if (stage[y][x] == 2)
+			else if (m_stage[y][x] == 2)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
 			}
 			// Sƒ~ƒm
-			else if (stage[y][x] == 3)
+			else if (m_stage[y][x] == 3)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
 			}
 			// Zƒ~ƒm
-			else if (stage[y][x] == 4)
+			else if (m_stage[y][x] == 4)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
 			}
 			// Jƒ~ƒm
-			else if (stage[y][x] == 5)
+			else if (m_stage[y][x] == 5)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
 			}
 			// Lƒ~ƒm
-			else if (stage[y][x] == 6)
+			else if (m_stage[y][x] == 6)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
 			}
 			// Tƒ~ƒm
-			else if (stage[y][x] == 7)
+			else if (m_stage[y][x] == 7)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
 			}
 			// ƒXƒe[ƒW
-			else if (stage[y][x] == 9)
+			else if (m_stage[y][x] == 9)
 			{
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "¡");
@@ -109,5 +104,3 @@ void Stage::my_draw_stage()
 		}
 	}
 }
-
-

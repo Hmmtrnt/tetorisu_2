@@ -10,28 +10,30 @@ public:
 
 	// 初期化
 	void init();
-	// 終了処理
-	void end();
-	// 更新処理
-	void update();
-	// 描画
-	void draw();
+	// ミノのランダム生成
+	void makeMino();
+	// ミノの描画
+	void drawMino();
+	// ミノの落下
+	void fallMino();
 
-	// 仮の関数
-	
-	void my_make_block();
-	void my_draw_block();
-	void my_fall_block();
+	// ミノのステージの中の座標
+	int m_minoX;	// X座標
+	int m_minoY;	// Y座標
 
-	int block_x;
-	int block_y;
-	float block_y_count;
-	int make_block_flag;
-	int block_id;
-	int block[BLOCK_HEIGHT][BLOCK_WIDTH];
+	// ミノの落下するフレームのY座標
+	float m_minoFlameY;
+	//ミノが作られているかどうか調べる
+	bool m_makeMinoFlag;
+
+
+
+	// ミノの種類
+	int m_minoId;
+	// ミノの配列を保存
+	int m_minoSave[BLOCK_HEIGHT][BLOCK_WIDTH];
 
 private:
-	float block_speed;
 	// ミノが降下するインターバル
 	int m_dropInterval;
 };
