@@ -17,40 +17,51 @@ public:
 	void end();
 	// 更新処理
 	void update();
-	// 描画処理
-	void draw();
 
-	// 仮の関数
-	void my_init_var2();
-	void my_ed();
-	void my_gameover();
-	void my_collision_left();
-	void my_collision_right();
-	void my_collision_bottom();
-	void my_collision_center();
-	void my_collision_turn();
-	void my_turn_right();
-	void my_fix_block();
-	void my_move_block();
-	void my_save_block();
-	void my_search_line();
-	void my_clear_line();
-	void my_draw_back();
-	void my_draw_variable();
+	// 二個目以降の初期化
+	void initScond();
+	// ゲームオーバー判定
+	void gameover();
+	// 当たり判定
+	void collisionLeft();		// 左
+	void collisionRight();		// 右
+	void collisionBottom();		// 地面
+	void collisionOver();		// 天井
+	void collisionTurn();		// 回転
+	// ミノの回転
+	void turnMino();
+	// ミノが落ちた時の処理
+	void fixMino();
+	// ミノの操作
+	void actionMino();
+	// ミノをステージの配列に保存
+	void saveMino();
+	// 揃った列を調べる
+	void searchLine();
+	// 揃った列の入れ替え
+	void clearLine();
+	// 背景
+	void drawBack();
 
-	int gameover_flag;
+	// ゲームオーバーになったかどうか
+	bool m_gameoverFlag;
 
 private:
 
-	
-	int collision_flag;
-	int turn_point;
-	int turn_block[BLOCK_HEIGHT][BLOCK_WIDTH];
-	int clear_line_point[STAGE_HEIGHT - 1];
-	int clear_count;
-	int clear_flag;
-
-	int back_img1;
+	// 壁の判定フラグ
+	bool m_collsionFlag;
+	// 回転後のミノを作る
+	int m_turnProvisional;
+	// 回転したミノを保存
+	int m_turnMino[BLOCK_HEIGHT][BLOCK_WIDTH];
+	// ミノがあるか調べる
+	int m_clearMinoLine[STAGE_HEIGHT - 1];
+	// 消去する一列の数
+	int m_clearCount;
+	// ブロックが消えているかどうか
+	bool m_clearFlag;
+	// 背景ハンドル
+	int m_backHandle;
 
 	// ミノとステージのポインタ
 	Mino*	m_pMino;

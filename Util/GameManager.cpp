@@ -4,24 +4,24 @@
 #include "Pad.h"
 
 GameManager::GameManager() :
-	gameover_flag(0),
-	collision_flag(0),
-	turn_point(0) ,
-	clear_count(0),
-	clear_flag(0),
-	back_img1(-1)
+	m_gameoverFlag(false),
+	m_collsionFlag(false),
+	m_turnProvisional(0) ,
+	m_clearCount(0),
+	m_clearFlag(false),
+	m_backHandle(-1)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			turn_block[y][x] = 0;
+			m_turnMino[y][x] = 0;
 		}
 	}
 
 	for (int y = 0; y < STAGE_HEIGHT - 1; y++)
 	{
-		clear_line_point[y] = 0;
+		m_clearMinoLine[y] = 0;
 	}
 
 	m_pMino = new Mino;
@@ -36,11 +36,11 @@ GameManager::~GameManager()
 
 void GameManager::init()
 {
-	gameover_flag = 0;
-	collision_flag = 0;
-	turn_point = 0;
-	clear_count = 0;
-	back_img1 = LoadGraph("data/back2.jpg");
+	m_gameoverFlag = false;
+	m_collsionFlag = false;
+	m_turnProvisional = 0;
+	m_clearCount = 0;
+	m_backHandle = LoadGraph("data/back2.jpg");
 
 	m_pMino->init();
 	m_pStage->init();
@@ -54,65 +54,55 @@ void GameManager::end()
 void GameManager::update()
 {
 	// ‰¼‚ÌŠÖ””z—ñ
-	if (clear_flag == 0)
+	if (!m_clearFlag)
 	{
 		m_pMino->makeMino();
-		my_gameover();
-		my_move_block();
-		my_draw_back();
+		gameover();
+		actionMino();
+		drawBack();
 		m_pMino->drawMino();
 		m_pStage->drawStage();
-		my_fix_block();
+		fixMino();
 		m_pMino->fallMino();
 	}
 	else
 	{
-		my_clear_line();
-		my_draw_back();
+		clearLine();
+		drawBack();
 		m_pStage->drawStage();
 	}
 	// ƒQ[ƒ€ƒI[ƒo[‚Ìˆ—
-	if (gameover_flag == 1)
+	if (m_gameoverFlag)
 	{
-		my_draw_back();
+		drawBack();
 		m_pMino->drawMino();
 		m_pStage->drawStage();
 		//return (new SceneResult);
 	}
 }
 
-void GameManager::draw()
-{
-	//m_pMino->my_make_block();
-}
-
-void GameManager::my_init_var2()
+void GameManager::initScond()
 {
 	m_pMino->m_minoX = 5;
 	m_pMino->m_minoY = -1;
 	m_pMino->m_minoFlameY = 0;
 	m_pMino->m_makeMinoFlag = true;
-	turn_point = 0;
+	m_turnProvisional = 0;
 }
 
-void GameManager::my_ed()
+void GameManager::gameover()
 {
-	DrawFormatString(400, 400, kColor::Color_Black, "GAME OVER");
-}
+	collisionOver();
 
-void GameManager::my_gameover()
-{
-	my_collision_center();
-
-	if (collision_flag != 0)
+	if (m_collsionFlag)
 	{
-		gameover_flag = 1;
+		m_gameoverFlag = true;
 	}
 }
 
-void GameManager::my_collision_left()
+void GameManager::collisionLeft()
 {
-	collision_flag = 0;
+	m_collsionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -122,13 +112,13 @@ void GameManager::my_collision_left()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x - 1)] != 0)
 				{
-					collision_flag = 1;
+					m_collsionFlag = true;
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0)
 				{
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x - 1)] != 0)
 					{
-						collision_flag = 1;
+						m_collsionFlag = true;
 					}
 				}
 			}
@@ -136,9 +126,9 @@ void GameManager::my_collision_left()
 	}
 }
 
-void GameManager::my_collision_right()
+void GameManager::collisionRight()
 {
-	collision_flag = 0;
+	m_collsionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -148,13 +138,13 @@ void GameManager::my_collision_right()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x + 1)] != 0)
 				{
-					collision_flag = 1;
+					m_collsionFlag = true;
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0)
 				{
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x + 1)] != 0)
 					{
-						collision_flag = 1;
+						m_collsionFlag = true;
 					}
 				}
 			}
@@ -162,9 +152,9 @@ void GameManager::my_collision_right()
 	}
 }
 
-void GameManager::my_collision_bottom()
+void GameManager::collisionBottom()
 {
-	collision_flag = 0;
+	m_collsionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -174,16 +164,16 @@ void GameManager::my_collision_bottom()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0)
 				{
-					collision_flag = 1;
+					m_collsionFlag = true;
 				}
 			}
 		}
 	}
 }
 
-void GameManager::my_collision_center()
+void GameManager::collisionOver()
 {
-	collision_flag = 0;
+	m_collsionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -193,84 +183,84 @@ void GameManager::my_collision_center()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
-					collision_flag = 1;
+					m_collsionFlag = true;
 				}
 			}
 		}
 	}
 }
 
-void GameManager::my_collision_turn()
+void GameManager::collisionTurn()
 {
-	collision_flag = 0;
+	m_collsionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (turn_block[y][x] != 0)
+			if (m_turnMino[y][x] != 0)
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
-					collision_flag = 1;
+					m_collsionFlag = true;
 				}
 			}
 		}
 	}
 }
 
-void GameManager::my_turn_right()
+void GameManager::turnMino()
 {
-	turn_point++;
+	m_turnProvisional++;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			turn_block[y][x] = kMino::blocks[(m_pMino->m_minoId * BLOCK_HEIGHT) + y][(turn_point % 4 * BLOCK_WIDTH) + x];
+			m_turnMino[y][x] = kMino::blocks[(m_pMino->m_minoId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
 		}
 	}
 
-	my_collision_turn();
+	collisionTurn();
 
-	if (collision_flag == 0)
+	if (!m_collsionFlag)
 	{
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
-				m_pMino->m_minoSave[y][x] = turn_block[y][x];
+				m_pMino->m_minoSave[y][x] = m_turnMino[y][x];
 			}
 		}
 	}
 	else
 	{
-		turn_point--;
+		m_turnProvisional--;
 	}
 }
 
-void GameManager::my_fix_block()
+void GameManager::fixMino()
 {
-	my_collision_bottom();
+	collisionBottom();
 
-	if (collision_flag != 0)
+	if (m_collsionFlag)
 	{
-		my_save_block();
-		my_search_line();
-		if (clear_flag == 0)
+		saveMino();
+		searchLine();
+		if (!m_clearFlag)
 		{
-			my_init_var2();
+			initScond();
 		}
 	}
 }
 
-void GameManager::my_move_block()
+void GameManager::actionMino()
 {
 	// ¶
 	if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
 	{
-		my_collision_left();
-		if (collision_flag == 0)
+		collisionLeft();
+		if (!m_collsionFlag)
 		{
 			m_pMino->m_minoX--;
 		}
@@ -278,8 +268,8 @@ void GameManager::my_move_block()
 	// ‰E
 	if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
 	{
-		my_collision_right();
-		if (collision_flag == 0)
+		collisionRight();
+		if (!m_collsionFlag)
 		{
 			m_pMino->m_minoX++;
 		}
@@ -287,8 +277,8 @@ void GameManager::my_move_block()
 	// ‹}~‰º
 	if (Pad::isPress(PAD_INPUT_DOWN) == 1)
 	{
-		my_collision_bottom();
-		if (collision_flag == 0)
+		collisionBottom();
+		if (!m_collsionFlag)
 		{
 			m_pMino->m_minoY++;
 			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
@@ -298,11 +288,11 @@ void GameManager::my_move_block()
 	// ƒ~ƒm‚Ì‰ñ“]
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
-		my_turn_right();
+		turnMino();
 	}
 }
 
-void GameManager::my_save_block()
+void GameManager::saveMino()
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -313,11 +303,11 @@ void GameManager::my_save_block()
 	}
 }
 
-void GameManager::my_search_line()
+void GameManager::searchLine()
 {
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
-		clear_line_point[i] = 0;
+		m_clearMinoLine[i] = 0;
 	}
 
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
@@ -326,7 +316,7 @@ void GameManager::my_search_line()
 		{
 			if (m_pStage->m_stage[i][j] == 0)
 			{
-				clear_line_point[i] = 1;
+				m_clearMinoLine[i] = 1;
 				break;
 			}
 		}
@@ -334,35 +324,35 @@ void GameManager::my_search_line()
 
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
-		if (clear_line_point[i] == 0)
+		if (m_clearMinoLine[i] == 0)
 		{
-			clear_flag = 1;
+			m_clearFlag = true;
 			break;
 		}
 	}
 }
 
-void GameManager::my_clear_line()
+void GameManager::clearLine()
 {
 	int remain_line_point[20] = { 0 };
 	int remain_line_index = 0;
 
-	if (clear_count < 10) 
+	if (m_clearCount < 10) 
 	{
 		for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 		{
-			if (clear_line_point[i] == 0)
+			if (m_clearMinoLine[i] == 0)
 			{
-				m_pStage->m_stage[i][clear_count + 1] = 0;
+				m_pStage->m_stage[i][m_clearCount + 1] = 0;
 			}
 		}
-		clear_count++;
+		m_clearCount++;
 	}
 	else
 	{
 		for (int i = STAGE_HEIGHT - 2; i >= 0; i--)
 		{
-			if (clear_line_point[i] != 0)
+			if (m_clearMinoLine[i] != 0)
 			{
 				remain_line_point[remain_line_index] = i;
 				remain_line_index++;
@@ -379,20 +369,13 @@ void GameManager::my_clear_line()
 			remain_line_index++;
 		}
 
-		clear_flag = 0;
-		clear_count = 0;
-		my_init_var2();
+		m_clearFlag = false;
+		m_clearCount = 0;
+		initScond();
 	}
 }
 
-void GameManager::my_draw_back()
+void GameManager::drawBack()
 {
-	DrawGraph(0, 0, back_img1, TRUE);
-}
-
-void GameManager::my_draw_variable()
-{
-	DrawFormatString(450, 400, kColor::Color_Black, "block_x = %d", m_pMino->m_minoX);
-	DrawFormatString(450, 420, kColor::Color_Black, "block_y = %d", m_pMino->m_minoY);
-	DrawFormatString(450, 440, kColor::Color_Black, "block_y_count = %f", m_pMino->m_minoFlameY);
+	DrawGraph(0, 0, m_backHandle, TRUE);
 }

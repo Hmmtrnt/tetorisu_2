@@ -37,11 +37,6 @@ SceneBase* SceneMain::update()
 {
 	m_pManager->update();
 
-	/*if (m_pManager->gameover_flag == 1)
-	{
-		return (new SceneResult);
-	}*/
-
 	// フェードアウトの処理
 	m_fadeBright += m_fadeSpeed;
 	if (m_fadeBright >= 255)
@@ -58,7 +53,7 @@ SceneBase* SceneMain::update()
 	if (m_fadeSpeed == 0)
 	{
 		// フェードアウト開始
-		if (m_pManager->gameover_flag == 1)
+		if (m_pManager->m_gameoverFlag == 1)
 		{
 			m_fadeSpeed = -kFade::Speed;
 		}
