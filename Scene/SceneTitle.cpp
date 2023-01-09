@@ -29,6 +29,8 @@ void SceneTitle::end()
 {
 	// 描画輝度
 	SetDrawBright(kFade::RedBright, kFade::GreenBright, kFade::BlueBright);
+
+	DeleteGraph(m_backHandle);
 }
 
 // 更新処理
@@ -53,6 +55,7 @@ SceneBase* SceneTitle::update()
 		// フェードアウト開始
 		if (Pad::isTrigger(PAD_INPUT_2))
 		{
+			PlaySoundFile("sound/pushTitle.mp3", DX_PLAYTYPE_BACK);
 			m_fadeSpeed = -kFade::Speed;
 		}
 	}
