@@ -60,7 +60,7 @@ void GameManager::update()
 		my_gameover();
 		my_move_block();
 		my_draw_back();
-		my_draw_variable();
+		//my_draw_variable();
 		m_pMino->my_draw_block();
 		m_pStage->my_draw_stage();
 		my_fix_block();
@@ -70,7 +70,7 @@ void GameManager::update()
 	{
 		my_clear_line();
 		my_draw_back();
-		my_draw_variable();
+		//my_draw_variable();
 		m_pStage->my_draw_stage();
 	}
 	// ƒQ[ƒ€ƒI[ƒo[‚Ìˆ—
@@ -294,16 +294,9 @@ void GameManager::my_move_block()
 		if (collision_flag == 0)
 		{
 			m_pMino->block_y++;
-			//m_pMino->block_y_count = (float)m_pMino->block_y * DRAW_BLOCK_WIDTH;
-
 			m_pMino->block_y_count += DRAW_BLOCK_WIDTH;
 		}
 	}
-
-	/*if (Pad::isPress(PAD_INPUT_DOWN) == 1)
-	{
-		m_pMino->block_y_count += DRAW_BLOCK_WIDTH;
-	}*/
 
 	// ƒ~ƒm‚Ì‰ñ“]
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)

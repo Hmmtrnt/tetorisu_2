@@ -22,4 +22,7 @@ private:
 	bool m_pushMainFlag;
 	bool m_pushTitleFlag;
 
+	// ”wŒiƒnƒ“ƒhƒ‹
+	int m_backHandle;
+
 };

@@ -8,7 +8,8 @@ SceneResult::SceneResult() :
 	m_fadeBright(0),
 	m_fadeSpeed(0),
 	m_pushMainFlag(false),
-	m_pushTitleFlag(false)
+	m_pushTitleFlag(false),
+	m_backHandle(-1)
 {
 
 }
@@ -26,6 +27,8 @@ void SceneResult::init()
 
 	m_pushMainFlag = false;
 	m_pushTitleFlag = false;
+
+	m_backHandle = LoadGraph("data/back2.jpg");
 }
 
 // èIóπèàóù
@@ -92,5 +95,6 @@ void SceneResult::draw()
 	// ï`âÊãPìx
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
-	DrawString(0, 0, "SceneResult", GetColor(255, 255, 255));
+	DrawGraph(0, 0, m_backHandle, true);
+	DrawString(0, 0, "SceneResult", GetColor(0, 0, 0));
 }
