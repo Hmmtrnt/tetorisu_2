@@ -1,6 +1,8 @@
 // タイトル画面
 #pragma once
 #include "SceneBase.h"
+#include "common.h"
+
 class SceneTitle : public SceneBase
 {
 public:
@@ -19,4 +21,6 @@ private:
 	// フェード速度
 	int m_fadeSpeed;
 
+	// 背景ハンドル
+	int m_backHandle;
 };

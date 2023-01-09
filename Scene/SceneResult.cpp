@@ -47,13 +47,13 @@ SceneBase* SceneResult::update()
 		m_fadeSpeed = 0;
 	}
 	if ((m_fadeBright <= 0) && (m_fadeSpeed < 0) && 
-		(Pad::isTrigger(PAD_INPUT_1)))
+		(m_pushMainFlag))
 	{
 		m_fadeBright = 0;
 		return(new SceneMain);
 	}
 	else if ((m_fadeBright <= 0) && (m_fadeSpeed < 0) && 
-		(Pad::isTrigger(PAD_INPUT_2)))
+		(m_pushTitleFlag))
 	{
 		m_fadeBright = 0;
 		return(new SceneTitle);
@@ -74,14 +74,14 @@ SceneBase* SceneResult::update()
 		}
 	}
 
-	if (Pad::isTrigger(PAD_INPUT_2))
+	/*if (Pad::isTrigger(PAD_INPUT_2))
 	{
 		return (new SceneTitle);
 	}
 	else if (Pad::isTrigger(PAD_INPUT_1))
 	{
 		return (new SceneMain);
-	}
+	}*/
 
 	return this;
 }

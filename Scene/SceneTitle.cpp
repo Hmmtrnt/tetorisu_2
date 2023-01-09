@@ -5,7 +5,8 @@
 
 SceneTitle::SceneTitle() :
 	m_fadeBright(0),
-	m_fadeSpeed(0)
+	m_fadeSpeed(0),
+	m_backHandle(-1)
 {
 
 }
@@ -20,6 +21,7 @@ void SceneTitle::init()
 {
 	m_fadeBright = kFade::Bright;	// フェード処理
 	m_fadeSpeed = kFade::Speed;	// フェード速度
+	m_backHandle = LoadGraph("data/back2.jpg");
 }
 
 // 終了処理
@@ -69,5 +71,6 @@ void SceneTitle::draw()
 	// 描画輝度
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
-	DrawString(0, 0, "テトリス", GetColor(255, 255, 255));
+	DrawGraph(0, 0, m_backHandle, true);
+	DrawString(0, 0, "テトリス", GetColor(0, 0, 0));
 }
