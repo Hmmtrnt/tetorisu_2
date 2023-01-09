@@ -96,17 +96,8 @@ SceneBase* SceneResult::update()
 			PlaySoundMem(m_soundHandle, DX_PLAYTYPE_BACK);
 			m_pushMainFlag = true;
 			m_fadeSpeed = -kFade::Speed;
-		}
+		}	
 	}
-
-	/*if (Pad::isTrigger(PAD_INPUT_2))
-	{
-		return (new SceneTitle);
-	}
-	else if (Pad::isTrigger(PAD_INPUT_1))
-	{
-		return (new SceneMain);
-	}*/
 
 	return this;
 }
@@ -124,4 +115,6 @@ void SceneResult::draw()
 	{
 		DrawString(220, 500, "ボタン２を押してタイトル\n\nボタン１を押してリスタート", GetColor(0, 0, 0), true);
 	}
+
+	DrawString(170, 600, "ボタン４を押していつでも終了できます。", GetColor(0, 0, 0), true);
 }

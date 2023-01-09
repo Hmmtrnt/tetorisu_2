@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "SceneManager.h"
 #include "game.h"
+#include "Pad.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
@@ -35,6 +36,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 
 		// 裏画面を表画面を入れ替える
 		ScreenFlip();
+
+		// ボタン４を押したら終了
+		if (Pad::isTrigger(PAD_INPUT_4))
+		{
+			break;
+		}
 
 		// escきーを押したら終了する
 		if (CheckHitKey(KEY_INPUT_ESCAPE))	break;

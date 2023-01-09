@@ -103,4 +103,5 @@ void SceneTitle::draw()
 	{
 		DrawString(220, 500, "ボタン２を押してスタート", GetColor(0, 0, 0), true);
 	}
+	DrawString(170, 600, "ボタン４を押していつでも終了できます。", GetColor(0, 0, 0), true);
 }
