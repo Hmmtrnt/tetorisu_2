@@ -9,7 +9,11 @@ SceneResult::SceneResult() :
 	m_fadeSpeed(0),
 	m_pushMainFlag(false),
 	m_pushTitleFlag(false),
-	m_backHandle(-1)
+	m_backHandle(-1),
+	m_textHandle(-1),
+	m_textFlash(0),
+	m_textShow(0),
+	m_textHide(0)
 {
 
 }
@@ -24,6 +28,11 @@ void SceneResult::init()
 {
 	m_fadeBright = kFade::Bright;	// フェード処理
 	m_fadeSpeed = kFade::Speed;	// フェード速度
+	// 文字サイズ
+	m_textHandle = CreateFontToHandle(NULL, 60, 4);
+	m_textFlash = 0;
+	m_textShow = 40;
+	m_textHide = 20;
 
 	m_pushMainFlag = false;
 	m_pushTitleFlag = false;
@@ -41,6 +50,12 @@ void SceneResult::end()
 // 更新処理
 SceneBase* SceneResult::update()
 {
+	// テキストの点滅
+	m_textFlash++;
+	if (m_textFlash >= m_textShow + m_textHide)
+	{
+		m_textFlash = 0;
+	}
 
 	// フェードアウトの処理
 	m_fadeBright += m_fadeSpeed;
@@ -96,5 +111,10 @@ void SceneResult::draw()
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
 	DrawGraph(0, 0, m_backHandle, true);
-	DrawString(0, 0, "SceneResult", GetColor(0, 0, 0));
+	DrawStringToHandle(130, 150, "ゲームオーバー", GetColor(255, 0, 0), m_textHandle);
+	// 点滅テキスト
+	if (m_textFlash < m_textShow)
+	{
+		DrawString(220, 500, "ボタン２を押してタイトル\n\nボタン１を押してリスタート", GetColor(0, 0, 0), true);
+	}
 }

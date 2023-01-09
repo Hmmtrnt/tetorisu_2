@@ -26,6 +26,7 @@ void SceneTitle::init()
 	m_fadeBright = kFade::Bright;	// フェード処理
 	m_fadeSpeed = kFade::Speed;	// フェード速度
 	m_backHandle = LoadGraph("data/back2.jpg");
+	// 文字サイズ
 	m_textHandle = CreateFontToHandle(NULL, 80, 4);
 	m_textFlash = 0;
 	m_textShow = 40;
@@ -89,13 +90,12 @@ void SceneTitle::draw()
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
 	DrawGraph(0, 0, m_backHandle, true);
-	//DrawString(0, 0, "テトリス", GetColor(0, 0, 0));
+	
 	DrawStringToHandle(160, 150, "テトリス", GetColor(0, 0, 0), m_textHandle);
 
 	// 点滅テキスト
 	if (m_textFlash < m_textShow)
 	{
-		//DrawStringToHandle(0, 0, "", GetColor(0, 0, 0), m_fontHandle2);
 		DrawString(220, 500, "ボタン２を押してスタート", GetColor(0, 0, 0), true);
 	}
 }
