@@ -53,7 +53,7 @@ SceneBase* SceneMain::update()
 	if (m_fadeSpeed == 0)
 	{
 		// フェードアウト開始
-		if (m_pManager->m_gameoverFlag == 1)
+		if (m_pManager->m_gameoverFlag)
 		{
 			m_fadeSpeed = -kFade::Speed;
 		}

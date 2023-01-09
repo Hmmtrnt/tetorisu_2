@@ -54,7 +54,7 @@ private:
 	int m_turnProvisional;
 	// ‰ñ“]‚µ‚½ƒ~ƒm‚ğ•Û‘¶
 	int m_turnMino[BLOCK_HEIGHT][BLOCK_WIDTH];
-	// ƒ~ƒm‚ª‚ ‚é‚©’²‚×‚é
+	// Á‹‚·‚éƒ~ƒm
 	int m_clearMinoLine[STAGE_HEIGHT - 1];
 	// Á‹‚·‚éˆê—ñ‚Ì”
 	int m_clearCount;

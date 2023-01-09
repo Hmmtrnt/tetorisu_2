@@ -34,6 +34,7 @@ GameManager::~GameManager()
 	delete m_pStage;
 }
 
+// 初期化処理
 void GameManager::init()
 {
 	m_gameoverFlag = false;
@@ -45,42 +46,45 @@ void GameManager::init()
 	m_pMino->init();
 	m_pStage->init();
 }
-
+// 終了処理
 void GameManager::end()
 {
 	m_pStage->end();
 }
 
+// 更新処理
 void GameManager::update()
 {
-	// 仮の関数配列
-	if (!m_clearFlag)
+	if (!m_gameoverFlag)
 	{
-		m_pMino->makeMino();
-		gameover();
-		actionMino();
-		drawBack();
-		m_pMino->drawMino();
-		m_pStage->drawStage();
-		fixMino();
-		m_pMino->fallMino();
-	}
-	else
-	{
-		clearLine();
-		drawBack();
-		m_pStage->drawStage();
+		if (!m_clearFlag)
+		{
+			m_pMino->makeMino();
+			gameover();
+			actionMino();
+			drawBack();
+			m_pMino->drawMino();
+			m_pStage->drawStage();
+			fixMino();
+			m_pMino->fallMino();
+		}
+		else if (m_clearFlag)
+		{
+			clearLine();
+			drawBack();
+			m_pStage->drawStage();
+		}
 	}
 	// ゲームオーバーの処理
-	if (m_gameoverFlag)
+	else if (m_gameoverFlag)
 	{
 		drawBack();
 		m_pMino->drawMino();
 		m_pStage->drawStage();
-		//return (new SceneResult);
 	}
 }
 
+// 二個目以降の初期化
 void GameManager::initScond()
 {
 	m_pMino->m_minoX = 5;
@@ -90,6 +94,7 @@ void GameManager::initScond()
 	m_turnProvisional = 0;
 }
 
+// ゲームオーバー判定
 void GameManager::gameover()
 {
 	collisionOver();
@@ -100,6 +105,10 @@ void GameManager::gameover()
 	}
 }
 
+// *********************************************
+// 当たり判定
+// *********************************************
+// 左
 void GameManager::collisionLeft()
 {
 	m_collsionFlag = false;
@@ -126,6 +135,7 @@ void GameManager::collisionLeft()
 	}
 }
 
+// 右
 void GameManager::collisionRight()
 {
 	m_collsionFlag = false;
@@ -152,6 +162,7 @@ void GameManager::collisionRight()
 	}
 }
 
+// 地面
 void GameManager::collisionBottom()
 {
 	m_collsionFlag = false;
@@ -171,6 +182,7 @@ void GameManager::collisionBottom()
 	}
 }
 
+// 天井
 void GameManager::collisionOver()
 {
 	m_collsionFlag = false;
@@ -190,6 +202,7 @@ void GameManager::collisionOver()
 	}
 }
 
+// 回転
 void GameManager::collisionTurn()
 {
 	m_collsionFlag = false;
@@ -208,7 +221,14 @@ void GameManager::collisionTurn()
 		}
 	}
 }
+// *********************************************
+// 当たり判定終了
+// *********************************************
 
+// ミノの回転
+// ミノを回転させた後回転した当たり判定を作る
+// そして動かすミノの配列に回転したミノを代入する
+// 右回転
 void GameManager::turnMino()
 {
 	m_turnProvisional++;
@@ -239,6 +259,7 @@ void GameManager::turnMino()
 	}
 }
 
+// ミノが落ちた時の処理
 void GameManager::fixMino()
 {
 	collisionBottom();
@@ -254,6 +275,7 @@ void GameManager::fixMino()
 	}
 }
 
+// ミノの操作
 void GameManager::actionMino()
 {
 	// 左
@@ -292,6 +314,7 @@ void GameManager::actionMino()
 	}
 }
 
+// ミノをステージの配列に保存
 void GameManager::saveMino()
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
@@ -303,6 +326,8 @@ void GameManager::saveMino()
 	}
 }
 
+// 揃った列を調べる
+// 横列に空白があれば次の行を調べる
 void GameManager::searchLine()
 {
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
@@ -332,13 +357,18 @@ void GameManager::searchLine()
 	}
 }
 
+// 揃った列の入れ替え
+// 
 void GameManager::clearLine()
 {
-	int remain_line_point[20] = { 0 };
-	int remain_line_index = 0;
+	// 消去する列の保存
+	int clearPoint[20] = { 0 };
+	// 消去する列の配列
+	int clearIndex = 0;
 
 	if (m_clearCount < 10) 
 	{
+		// 消去する列を調べる
 		for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 		{
 			if (m_clearMinoLine[i] == 0)
@@ -354,19 +384,19 @@ void GameManager::clearLine()
 		{
 			if (m_clearMinoLine[i] != 0)
 			{
-				remain_line_point[remain_line_index] = i;
-				remain_line_index++;
+				clearPoint[clearIndex] = i;
+				clearIndex++;
 			}
 		}
 
-		remain_line_index = 0;
+		clearIndex = 0;
 		for (int y = STAGE_HEIGHT - 2; y >= 0; y--)
 		{
 			for (int x = 1; x < STAGE_WIDTH - 1; x++)
 			{
-				m_pStage->m_stage[y][x] = m_pStage->m_stage[remain_line_point[remain_line_index]][x];
+				m_pStage->m_stage[y][x] = m_pStage->m_stage[clearPoint[clearIndex]][x];
 			}
-			remain_line_index++;
+			clearIndex++;
 		}
 
 		m_clearFlag = false;
@@ -375,6 +405,7 @@ void GameManager::clearLine()
 	}
 }
 
+// 背景
 void GameManager::drawBack()
 {
 	DrawGraph(0, 0, m_backHandle, TRUE);
