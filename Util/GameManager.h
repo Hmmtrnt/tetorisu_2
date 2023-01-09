@@ -62,6 +62,9 @@ private:
 	bool m_clearFlag;
 	// 背景ハンドル
 	int m_backHandle;
+	// 音ハンドル
+	int m_soundMove;		// 操作
+	int m_soundClear;		// 消去
 
 	// ミノとステージのポインタ
 	Mino*	m_pMino;

@@ -9,7 +9,9 @@ GameManager::GameManager() :
 	m_turnProvisional(0) ,
 	m_clearCount(0),
 	m_clearFlag(false),
-	m_backHandle(-1)
+	m_backHandle(-1),
+	m_soundMove(0),
+	m_soundClear(0)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -42,6 +44,10 @@ void GameManager::init()
 	m_turnProvisional = 0;
 	m_clearCount = 0;
 	m_backHandle = LoadGraph("data/back2.jpg");
+	m_soundMove = LoadSoundMem("sound/move.mp3");
+	ChangeVolumeSoundMem(150, m_soundMove);
+	m_soundClear = LoadSoundMem("sound/clear1.mp3");
+	ChangeVolumeSoundMem(255, m_soundClear);
 
 	m_pMino->init();
 	m_pStage->init();
@@ -49,6 +55,8 @@ void GameManager::init()
 // I—¹ˆ—
 void GameManager::end()
 {
+	DeleteSoundMem(m_soundMove);
+	DeleteSoundMem(m_soundClear);
 	m_pStage->end();
 }
 
@@ -284,6 +292,7 @@ void GameManager::actionMino()
 		collisionLeft();
 		if (!m_collsionFlag)
 		{
+			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 			m_pMino->m_minoX--;
 		}
 	}
@@ -293,6 +302,7 @@ void GameManager::actionMino()
 		collisionRight();
 		if (!m_collsionFlag)
 		{
+			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 			m_pMino->m_minoX++;
 		}
 	}
@@ -302,6 +312,7 @@ void GameManager::actionMino()
 		collisionBottom();
 		if (!m_collsionFlag)
 		{
+			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 			m_pMino->m_minoY++;
 			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
 		}
@@ -310,6 +321,7 @@ void GameManager::actionMino()
 	// ƒ~ƒm‚Ì‰ñ“]
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
+		PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 		turnMino();
 	}
 }
@@ -398,6 +410,7 @@ void GameManager::clearLine()
 			}
 			clearIndex++;
 		}
+		PlaySoundMem(m_soundClear, DX_PLAYTYPE_BACK);
 
 		m_clearFlag = false;
 		m_clearCount = 0;

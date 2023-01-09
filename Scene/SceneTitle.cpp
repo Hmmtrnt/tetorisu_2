@@ -10,7 +10,8 @@ SceneTitle::SceneTitle() :
 	m_textHandle(-1),
 	m_textFlash(0),
 	m_textShow(0),
-	m_textHide(0)
+	m_textHide(0),
+	m_soundHandle(0)
 {
 
 }
@@ -31,6 +32,8 @@ void SceneTitle::init()
 	m_textFlash = 0;
 	m_textShow = 40;
 	m_textHide = 20;
+	// 音
+	m_soundHandle = LoadSoundMem("sound/pushTitle.mp3");
 }
 
 // 終了処理
@@ -40,6 +43,7 @@ void SceneTitle::end()
 	SetDrawBright(kFade::RedBright, kFade::GreenBright, kFade::BlueBright);
 
 	DeleteGraph(m_backHandle);
+	DeleteSoundMem(m_soundHandle);
 }
 
 // 更新処理
@@ -70,7 +74,8 @@ SceneBase* SceneTitle::update()
 		// フェードアウト開始
 		if (Pad::isTrigger(PAD_INPUT_2))
 		{
-			PlaySoundFile("sound/pushTitle.mp3", DX_PLAYTYPE_BACK);
+			ChangeVolumeSoundMem(150, m_soundHandle);
+			PlaySoundMem(m_soundHandle, DX_PLAYTYPE_BACK);
 			m_fadeSpeed = -kFade::Speed;
 		}
 	}

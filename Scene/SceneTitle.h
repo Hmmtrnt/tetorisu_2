@@ -29,4 +29,6 @@ private:
 	int m_textFlash;		// フレーム
 	int m_textShow;			// 表示
 	int m_textHide;			// 非表示
+	// 音ハンドル
+	int m_soundHandle;
 };
