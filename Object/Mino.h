@@ -32,4 +32,6 @@ public:
 
 private:
 	float block_speed;
+	// ミノが降下するインターバル
+	int m_dropInterval;
 };

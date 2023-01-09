@@ -61,50 +61,50 @@ void Stage::my_draw_stage()
 			// OÉ~Ém
 			if (stage[y][x] == 1)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "Å°");
 			}
 			// IÉ~Ém
 			else if (stage[y][x] == 2)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "Å°");
 			}
 			// SÉ~Ém
 			else if (stage[y][x] == 3)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "Å°");
 			}
 			// ZÉ~Ém
 			else if (stage[y][x] == 4)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "Å°");
 			}
 			// JÉ~Ém
 			else if (stage[y][x] == 5)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "Å°");
 			}
 			// LÉ~Ém
 			else if (stage[y][x] == 6)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "Å°");
 			}
 			// TÉ~Ém
 			else if (stage[y][x] == 7)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "Å°");
 			}
 			// ÉXÉeÅ[ÉW
 			else if (stage[y][x] == 9)
 			{
-				DrawFormatString(x * DRAW_BLOCK_WIDTH,
-					y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "Å°");
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "Å°");
 			}
 		}
 	}

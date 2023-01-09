@@ -91,8 +91,8 @@ void GameManager::draw()
 
 void GameManager::my_init_var2()
 {
-	m_pMino->block_x = 7;
-	m_pMino->block_y = 0;
+	m_pMino->block_x = 5;
+	m_pMino->block_y = -1;
 	m_pMino->block_y_count = 0;
 	m_pMino->make_block_flag = 1;
 	turn_point = 0;
@@ -294,9 +294,17 @@ void GameManager::my_move_block()
 		if (collision_flag == 0)
 		{
 			m_pMino->block_y++;
-			m_pMino->block_y_count = (float)m_pMino->block_y * DRAW_BLOCK_WIDTH;
+			//m_pMino->block_y_count = (float)m_pMino->block_y * DRAW_BLOCK_WIDTH;
+
+			m_pMino->block_y_count += DRAW_BLOCK_WIDTH;
 		}
 	}
+
+	/*if (Pad::isPress(PAD_INPUT_DOWN) == 1)
+	{
+		m_pMino->block_y_count += DRAW_BLOCK_WIDTH;
+	}*/
+
 	// ƒ~ƒm‚Ì‰ñ“]
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
@@ -394,7 +402,7 @@ void GameManager::my_draw_back()
 
 void GameManager::my_draw_variable()
 {
-	DrawFormatString(400, 400, kColor::Color_Black, "block_x = %d", m_pMino->block_x);
-	DrawFormatString(400, 420, kColor::Color_Black, "block_y = %d", m_pMino->block_y);
-	DrawFormatString(400, 440, kColor::Color_Black, "block_y_count = %f", m_pMino->block_y_count);
+	DrawFormatString(450, 400, kColor::Color_Black, "block_x = %d", m_pMino->block_x);
+	DrawFormatString(450, 420, kColor::Color_Black, "block_y = %d", m_pMino->block_y);
+	DrawFormatString(450, 440, kColor::Color_Black, "block_y_count = %f", m_pMino->block_y_count);
 }
