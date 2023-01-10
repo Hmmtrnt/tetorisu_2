@@ -101,6 +101,14 @@ void Stage::drawStage()
 				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
 					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "Å°");
 			}
+			else if (m_stage[y][x] == 0)
+			{
+				DrawFormatString(DRAW_POASTION_STAGE + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_STAGE + y * DRAW_BLOCK_WIDTH, kColor::Color_Black, "Å†");
+			}
 		}
 	}
+
+
+
 }

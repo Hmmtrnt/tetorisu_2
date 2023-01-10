@@ -14,7 +14,7 @@
 #define STAGE_HEIGHT 21		// c
 #define STAGE_WIDTH 12		// ‰¡
 
-// •`‰æ‚·‚éƒ~ƒm“¯m‚Ì•
+// •`‰æ‚·‚éƒ~ƒm“¯m‚Ì‰¡•
 #define DRAW_BLOCK_WIDTH 15
 
 // •`‰æ‚·‚éˆÊ’u‚Ì•ÏX
@@ -88,5 +88,5 @@ namespace kFade
 	// •`‰æ‹P“x
 	constexpr int RedBright = 255;		// Ô
 	constexpr int GreenBright = 255;	// —Î
-	constexpr int BlueBright = 255;	// Â
+	constexpr int BlueBright = 255;		// Â
 }
