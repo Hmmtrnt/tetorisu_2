@@ -66,6 +66,9 @@ private:
 	int m_soundMove;		// 操作
 	int m_soundClear;		// 消去
 
+	// スコア
+	int m_score;
+
 	// ミノとステージのポインタ
 	Mino*	m_pMino;
 	Stage*	m_pStage;

@@ -11,7 +11,8 @@ GameManager::GameManager() :
 	m_clearFlag(false),
 	m_backHandle(-1),
 	m_soundMove(0),
-	m_soundClear(0)
+	m_soundClear(0),
+	m_score(0)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -43,6 +44,7 @@ void GameManager::init()
 	m_collsionFlag = false;
 	m_turnProvisional = 0;
 	m_clearCount = 0;
+	m_score = 0;
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_soundMove = LoadSoundMem("sound/move.mp3");
 	ChangeVolumeSoundMem(150, m_soundMove);
@@ -388,6 +390,7 @@ void GameManager::clearLine()
 				m_pStage->m_stage[i][m_clearCount + 1] = 0;
 			}
 		}
+		m_score += 1;
 		m_clearCount++;
 	}
 	else
@@ -422,4 +425,5 @@ void GameManager::clearLine()
 void GameManager::drawBack()
 {
 	DrawGraph(0, 0, m_backHandle, TRUE);
+	DrawFormatString(0, 0, GetColor(0, 0, 0), "%d", m_score, true);
 }
