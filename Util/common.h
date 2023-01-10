@@ -18,8 +18,8 @@
 #define DRAW_BLOCK_WIDTH 15
 
 // 描画する位置の変更
-#define DRAW_POASTION_STAGE 200
-#define DRAW_POASTION_MINO 200
+#define DRAW_POASTION_STAGE 200		// ステージ
+#define DRAW_POASTION_MINO 200		// ミノ
 
 // ミノの配列
 namespace kMino
