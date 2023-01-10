@@ -319,7 +319,7 @@ void GameManager::actionMino()
 	}
 
 	// ƒ~ƒm‚Ì‰ñ“]
-	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
+	if (Pad::isTrigger(PAD_INPUT_1) == 1)
 	{
 		PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 		turnMino();

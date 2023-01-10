@@ -15,7 +15,7 @@
 #define STAGE_WIDTH 12		// ‰¡
 
 // •`‰æ‚·‚éƒ~ƒm“¯Žm‚Ì•
-#define DRAW_BLOCK_WIDTH 20
+#define DRAW_BLOCK_WIDTH 15
 
 // •`‰æ‚·‚éˆÊ’u‚Ì•ÏX
 #define DRAW_POASTION_STAGE 200
