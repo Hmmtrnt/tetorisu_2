@@ -370,7 +370,7 @@ void GameManager::searchLine()
 }
 
 // ‘µ‚Á‚½—ñ‚Ì“ü‚ê‘Ö‚¦
-// 
+// –ˆƒtƒŒ[ƒ€ˆ—
 void GameManager::clearLine()
 {
 	// Á‹‚·‚é—ñ‚Ì•Û‘¶
