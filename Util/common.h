@@ -24,7 +24,7 @@
 // É~ÉmÇÃîzóÒ
 namespace kMino
 {
-	constexpr int blocks[BLOCK_HEIGHT * BLOCK_TYPE][BLOCK_WIDTH * BLOCK_ROTATE_TYPE] = {
+	constexpr int minos[BLOCK_HEIGHT * BLOCK_TYPE][BLOCK_WIDTH * BLOCK_ROTATE_TYPE] = {
 		// OÉ~Ém	ÅÀÇ±ÇÍà»ç~ÇÕâÒì]ÇµÇΩÉ~Ém
 		{0,0,0,0,	0,0,0,0,	0,0,0,0,	0,0,0,0},
 		{0,1,1,0,	0,1,1,0,	0,1,1,0,	0,1,1,0},

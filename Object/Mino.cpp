@@ -46,7 +46,7 @@ void Mino::makeMino()
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
-				m_minoSave[y][x] = kMino::blocks[(m_minoId * BLOCK_HEIGHT) + y][x];
+				m_minoSave[y][x] = kMino::minos[(m_minoId * BLOCK_HEIGHT) + y][x];
 			}
 		}
 		m_makeMinoFlag = false;

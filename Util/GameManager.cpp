@@ -247,7 +247,7 @@ void GameManager::turnMino()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			m_turnMino[y][x] = kMino::blocks[(m_pMino->m_minoId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
+			m_turnMino[y][x] = kMino::minos[(m_pMino->m_minoId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
 		}
 	}
 
