@@ -308,6 +308,7 @@ void GameManager::actionMino()
 			if (m_speedUpIntervar <= 0)
 			{
 				m_speedUpIntervar = 3;
+				m_score++;
 				PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 				m_pMino->m_minoY++;
 				m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
@@ -355,13 +356,14 @@ void GameManager::searchLine()
 			}
 		}
 	}
-
+	//m_score += 1;
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
 		if (m_clearMinoLine[i] == 1)
 		{
 			m_clearFlag = true;
-			break;
+			m_score+=10;
+			//break;
 		}
 	}
 }
@@ -385,7 +387,7 @@ void GameManager::clearLine()
 				m_pStage->m_stage[i][m_clearCount + 1] = 0;
 			}
 		}
-		m_score += 1;
+		
 		m_clearCount++;
 	}
 	// è¡Ç¶ÇΩóÒÇÃì¸ÇÍë÷Ç¶
@@ -409,9 +411,12 @@ void GameManager::clearLine()
 			{
 				m_pStage->m_stage[y][x] = m_pStage->m_stage[clearPoint[clearIndex]][x];
 			}
+			
 			clearIndex++;
 		}
 		PlaySoundMem(m_soundClear, DX_PLAYTYPE_BACK);
+
+		
 
 		m_clearFlag = false;
 		m_clearCount = 0;
@@ -423,5 +428,5 @@ void GameManager::clearLine()
 void GameManager::drawBack()
 {
 	DrawGraph(0, 0, m_backHandle, TRUE);
-	DrawFormatString(0, 0, GetColor(0, 0, 0), "%d", m_score, true);
+	DrawFormatString(450, 400, GetColor(0, 0, 0), "ÉXÉRÉAÅÅ%d", m_score, true);
 }
