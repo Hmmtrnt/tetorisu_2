@@ -37,7 +37,7 @@ Mino::~Mino()
 void Mino::init()
 {
 	m_minoX = 4;
-	m_minoY = -1;
+	m_minoY = 0;
 	m_minoFlameY = 0;
 	m_firstMinoFlag = true;
 	m_secondMinoFlag = true;
