@@ -51,11 +51,11 @@ void Mino::init()
 // ミノのランダム生成
 void Mino::makeMino()
 {
-	// 最初に生成したミノ
+	// 1番最初のミノ
 	if (m_firstMinoFlag)
 	{
 		m_firstId = (rand() % BLOCK_TYPE);
-		// 現在進行形で落ちているミノの次に落ちてくるミノの保存
+		// ミノの保存
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
@@ -67,7 +67,7 @@ void Mino::makeMino()
 		m_firstMinoFlag = false;
 	}
 
-	// 操作するミノ
+	// 2個目以降のミノ
 	if (m_secondMinoFlag)
 	{
 		m_secondId = m_firstId;
