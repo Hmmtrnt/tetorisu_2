@@ -6,8 +6,10 @@ Mino::Mino() :
 	m_minoX(0),
 	m_minoY(0),
 	m_minoFlameY(0),
-	m_makeMinoFlag(false),
-	m_minoId(0),
+	m_firstMinoFlag(false),
+	m_secondMinoFlag(false),
+	m_firstId(0),
+	m_secondId(0),
 	m_dropInterval(0)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
@@ -34,11 +36,13 @@ Mino::~Mino()
 // ‰Šú‰»
 void Mino::init()
 {
-	m_minoX = 5;
+	m_minoX = 4;
 	m_minoY = -1;
 	m_minoFlameY = 0;
-	m_makeMinoFlag = true;
-	m_minoId = 0;
+	m_firstMinoFlag = true;
+	m_secondMinoFlag = true;
+	m_firstId = 0;
+	m_secondId = 0;
 	m_dropInterval = 70;
 
 	srand((unsigned)time(NULL));
@@ -47,28 +51,37 @@ void Mino::init()
 // ƒ~ƒm‚Ìƒ‰ƒ“ƒ_ƒ€¶¬
 void Mino::makeMino()
 {
-	if (m_makeMinoFlag)
+	// Å‰‚É¶¬‚µ‚½ƒ~ƒm
+	if (m_firstMinoFlag)
 	{
-		m_minoId = (rand() % BLOCK_TYPE);
+		m_firstId = (rand() % BLOCK_TYPE);
 		// Œ»ÝisŒ`‚Å—Ž‚¿‚Ä‚¢‚éƒ~ƒm‚ÌŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì•Û‘¶
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
-				m_minoNext[y][x] = kMino::minos[(m_minoId * BLOCK_HEIGHT) + y][x];
+				m_minoNext[y][x] = kMino::minos[(m_firstId * BLOCK_HEIGHT) + y][x];
 			}
 		}
 
+		m_firstMinoFlag = false;
+	}
+
+	// ‘€ì‚·‚éƒ~ƒm
+	if (m_secondMinoFlag)
+	{
+		m_secondId = m_firstId;
+		m_firstId = (rand() % BLOCK_TYPE);
 		// ŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì‚ð‘€ì‰Â”\‚É‚·‚é•Û‘¶
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
 				m_minoSave[y][x] = m_minoNext[y][x];
+				m_minoNext[y][x] = kMino::minos[(m_firstId * BLOCK_HEIGHT) + y][x];
 			}
 		}
-
-		m_makeMinoFlag = false;
+		m_secondMinoFlag = false;
 	}
 }
 
@@ -179,7 +192,7 @@ void Mino::drawMino()
 // ƒ~ƒm‚Ì—Ž‰º
 void Mino::fallMino()
 {
-	if (!m_makeMinoFlag)
+	if (!m_firstMinoFlag)
 	{
 		m_dropInterval--;
 		if (m_dropInterval <= 0)

@@ -102,7 +102,8 @@ void GameManager::initScond()
 	m_pMino->m_minoX = 5;
 	m_pMino->m_minoY = -1;
 	m_pMino->m_minoFlameY = 0;
-	m_pMino->m_makeMinoFlag = true;
+	//m_pMino->m_firstMinoFlag = true;
+	m_pMino->m_secondMinoFlag = true;
 	m_turnProvisional = 0;
 }
 
@@ -236,7 +237,7 @@ void GameManager::turnMino()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			m_turnMino[y][x] = kMino::minos[(m_pMino->m_minoId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
+			m_turnMino[y][x] = kMino::minos[(m_pMino->m_secondId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
 		}
 	}
 

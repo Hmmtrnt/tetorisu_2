@@ -23,13 +23,16 @@ public:
 
 	// ミノの落下するフレームのY座標
 	float m_minoFlameY;
-	//ミノが作られているかどうか調べる
-	bool m_makeMinoFlag;
+	// 最初に生成したミノが作られたかどうかのフラグ
+	bool m_firstMinoFlag;
+	// 操作するミノの作られたかどうかのフラグ
+	bool m_secondMinoFlag;
 
 
-
-	// ミノの種類
-	int m_minoId;
+	// 控えにあるミノの種類
+	int m_firstId;
+	// 操作中ミノの種類
+	int m_secondId;
 	// ミノの配列を保存
 	int m_minoSave[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// 次に落ちてくるミノの配列の保存
