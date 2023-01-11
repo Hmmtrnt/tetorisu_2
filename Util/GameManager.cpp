@@ -12,7 +12,8 @@ GameManager::GameManager() :
 	m_backHandle(-1),
 	m_soundMove(0),
 	m_soundClear(0),
-	m_score(0)
+	m_score(0),
+	m_speedUpIntervar(0)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -45,6 +46,7 @@ void GameManager::init()
 	m_turnProvisional = 0;
 	m_clearCount = 0;
 	m_score = 0;
+	m_speedUpIntervar = 3;
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_soundMove = LoadSoundMem("sound/move.mp3");
 	ChangeVolumeSoundMem(150, m_soundMove);
@@ -229,6 +231,7 @@ void GameManager::turnMino()
 {
 	m_turnProvisional++;
 
+	// 回転した配列を別の配列に保存
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
@@ -239,6 +242,7 @@ void GameManager::turnMino()
 
 	collisionTurn();
 
+	//回転した際に壁にめり込むのであれば回転しない
 	if (!m_collsionFlag)
 	{
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
@@ -300,9 +304,14 @@ void GameManager::actionMino()
 		collisionBottom();
 		if (!m_collsionFlag)
 		{
-			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
-			m_pMino->m_minoY++;
-			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
+			m_speedUpIntervar--;
+			if (m_speedUpIntervar <= 0)
+			{
+				m_speedUpIntervar = 3;
+				PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+				m_pMino->m_minoY++;
+				m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
+			}
 		}
 	}
 
@@ -332,7 +341,7 @@ void GameManager::searchLine()
 {
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
-		m_clearMinoLine[i] = 0;
+		m_clearMinoLine[i] = 1;
 	}
 
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
@@ -341,7 +350,7 @@ void GameManager::searchLine()
 		{
 			if (m_pStage->m_stage[i][j] == 0)
 			{
-				m_clearMinoLine[i] = 1;
+				m_clearMinoLine[i] = 0;
 				break;
 			}
 		}
@@ -349,7 +358,7 @@ void GameManager::searchLine()
 
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
-		if (m_clearMinoLine[i] == 0)
+		if (m_clearMinoLine[i] == 1)
 		{
 			m_clearFlag = true;
 			break;
@@ -361,7 +370,7 @@ void GameManager::searchLine()
 // 毎フレーム処理
 void GameManager::clearLine()
 {
-	// 消去する列の保存
+	// 残しておくべき列の保存
 	int clearPoint[20] = { 0 };
 	// 消去する列の配列
 	int clearIndex = 0;
@@ -371,7 +380,7 @@ void GameManager::clearLine()
 		// 消去する列を調べる
 		for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 		{
-			if (m_clearMinoLine[i] == 0)
+			if (m_clearMinoLine[i] == 1)
 			{
 				m_pStage->m_stage[i][m_clearCount + 1] = 0;
 			}
@@ -379,11 +388,13 @@ void GameManager::clearLine()
 		m_score += 1;
 		m_clearCount++;
 	}
+	// 消えた列の入れ替え
 	else
 	{
+		// 残すべき列の保存
 		for (int i = STAGE_HEIGHT - 2; i >= 0; i--)
 		{
-			if (m_clearMinoLine[i] != 0)
+			if (m_clearMinoLine[i] != 1)
 			{
 				clearPoint[clearIndex] = i;
 				clearIndex++;
@@ -391,6 +402,7 @@ void GameManager::clearLine()
 		}
 
 		clearIndex = 0;
+		// 保存された列の入れ替え
 		for (int y = STAGE_HEIGHT - 2; y >= 0; y--)
 		{
 			for (int x = 1; x < STAGE_WIDTH - 1; x++)

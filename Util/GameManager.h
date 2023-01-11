@@ -69,6 +69,9 @@ private:
 	// スコア
 	int m_score;
 
+	//落下加速のインターバル
+	int m_speedUpIntervar;
+
 	// ミノとステージのポインタ
 	Mino*	m_pMino;
 	Stage*	m_pStage;
