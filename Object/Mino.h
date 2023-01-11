@@ -32,6 +32,8 @@ public:
 	int m_minoId;
 	// ミノの配列を保存
 	int m_minoSave[BLOCK_HEIGHT][BLOCK_WIDTH];
+	// 次に落ちてくるミノの配列の保存
+	int m_minoNext[BLOCK_HEIGHT][BLOCK_WIDTH];
 
 private:
 	// ミノが降下するインターバル

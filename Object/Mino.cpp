@@ -17,6 +17,14 @@ Mino::Mino() :
 			m_minoSave[y][x] = 0;
 		}
 	}
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			m_minoNext[y][x] = 0;
+		}
+	}
 }
 
 Mino::~Mino()
@@ -42,13 +50,24 @@ void Mino::makeMino()
 	if (m_makeMinoFlag)
 	{
 		m_minoId = (rand() % BLOCK_TYPE);
+		// Œ»ÝisŒ`‚Å—Ž‚¿‚Ä‚¢‚éƒ~ƒm‚ÌŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì•Û‘¶
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
-				m_minoSave[y][x] = kMino::minos[(m_minoId * BLOCK_HEIGHT) + y][x];
+				m_minoNext[y][x] = kMino::minos[(m_minoId * BLOCK_HEIGHT) + y][x];
 			}
 		}
+
+		// ŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì‚ð‘€ì‰Â”\‚É‚·‚é•Û‘¶
+		for (int y = 0; y < BLOCK_HEIGHT; y++)
+		{
+			for (int x = 0; x < BLOCK_WIDTH; x++)
+			{
+				m_minoSave[y][x] = m_minoNext[y][x];
+			}
+		}
+
 		m_makeMinoFlag = false;
 	}
 }
@@ -56,6 +75,57 @@ void Mino::makeMino()
 // ƒ~ƒm‚Ì•`‰æ
 void Mino::drawMino()
 {
+	// ŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì•`‰æ
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			// Oƒ~ƒm
+			if (m_minoNext[y][x] == 1)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "¡");
+			}
+			// Iƒ~ƒm
+			else if (m_minoNext[y][x] == 2)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "¡");
+			}
+			// Sƒ~ƒm
+			else if (m_minoNext[y][x] == 3)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "¡");
+			}
+			// Zƒ~ƒm
+			else if (m_minoNext[y][x] == 4)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "¡");
+			}
+			// Jƒ~ƒm
+			else if (m_minoNext[y][x] == 5)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "¡");
+			}
+			// Lƒ~ƒm
+			else if (m_minoNext[y][x] == 6)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "¡");
+			}
+			// Tƒ~ƒm
+			else if (m_minoNext[y][x] == 7)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + 15 * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + 15 + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "¡");
+			}
+		}
+	}
+
+	// Œ»Ý—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì•`‰æ
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
