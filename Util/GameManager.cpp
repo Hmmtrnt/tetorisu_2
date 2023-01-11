@@ -13,7 +13,8 @@ GameManager::GameManager() :
 	m_soundMove(0),
 	m_soundClear(0),
 	m_score(0),
-	m_speedUpIntervar(0)
+	m_speedUpIntervar(0),
+	m_actionTime(0)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -47,6 +48,7 @@ void GameManager::init()
 	m_clearCount = 0;
 	m_score = 0;
 	m_speedUpIntervar = 3;
+	m_actionTime = 60;
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_soundMove = LoadSoundMem("sound/move.mp3");
 	ChangeVolumeSoundMem(150, m_soundMove);
@@ -78,7 +80,7 @@ void GameManager::update()
 			m_pMino->drawMino();
 			m_pStage->drawStage();
 			fixMino();
-			m_pMino->fallMino();
+			//m_pMino->fallMino();
 		}
 		else if (m_clearFlag)
 		{
@@ -267,12 +269,22 @@ void GameManager::fixMino()
 
 	if (m_collsionFlag)
 	{
-		saveMino();
-		searchLine();
-		if (!m_clearFlag)
+		m_actionTime--;
+		if (m_actionTime <= 0)
 		{
-			initScond();
+			saveMino();
+			searchLine();
+			if (!m_clearFlag)
+			{
+				initScond();
+			}
+			m_actionTime = 60;
 		}
+	}
+	else if (!m_collsionFlag)
+	{
+		DrawBox(0, 0, 20, 20, GetColor(0, 0, 0), true);
+		m_pMino->fallMino();
 	}
 }
 
@@ -357,7 +369,6 @@ void GameManager::searchLine()
 			}
 		}
 	}
-	//m_score += 1;
 	for (int i = 0; i < STAGE_HEIGHT - 1; i++)
 	{
 		if (m_clearMinoLine[i] == 1)

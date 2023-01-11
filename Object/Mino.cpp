@@ -192,7 +192,7 @@ void Mino::drawMino()
 // ƒ~ƒm‚Ì—Ž‰º
 void Mino::fallMino()
 {
-	if (!m_firstMinoFlag)
+	if (!m_secondMinoFlag)
 	{
 		m_dropInterval--;
 		if (m_dropInterval <= 0)

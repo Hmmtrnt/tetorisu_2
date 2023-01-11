@@ -65,12 +65,12 @@ private:
 	// 音ハンドル
 	int m_soundMove;		// 操作
 	int m_soundClear;		// 消去
-
 	// スコア
 	int m_score;
-
 	//落下加速のインターバル
 	int m_speedUpIntervar;
+	// ミノが底辺で活動できる時間
+	int m_actionTime;
 
 	// ミノとステージのポインタ
 	Mino*	m_pMino;
