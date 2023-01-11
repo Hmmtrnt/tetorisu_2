@@ -133,13 +133,6 @@ void GameManager::collisionLeft()
 				{
 					m_collsionFlag = true;
 				}
-				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0)
-				{
-					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x - 1)] != 0)
-					{
-						m_collsionFlag = true;
-					}
-				}
 			}
 		}
 	}
@@ -159,13 +152,6 @@ void GameManager::collisionRight()
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x + 1)] != 0)
 				{
 					m_collsionFlag = true;
-				}
-				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0)
-				{
-					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x + 1)] != 0)
-					{
-						m_collsionFlag = true;
-					}
 				}
 			}
 		}
