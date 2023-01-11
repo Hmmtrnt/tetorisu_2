@@ -41,4 +41,14 @@ public:
 private:
 	// ミノが降下するインターバル
 	int m_dropInterval;
+
+	// 七種一巡フラグ
+	bool m_OMinoFlag;
+	bool m_IMinoFlag;
+	bool m_SMinoFlag;
+	bool m_ZMinoFlag;
+	bool m_JMinoFlag;
+	bool m_LMinoFlag;
+	bool m_TMinoFlag;
+
 };

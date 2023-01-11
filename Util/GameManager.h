@@ -46,6 +46,9 @@ public:
 	// ゲームオーバーになったかどうか
 	bool m_gameoverFlag;
 
+	// スコア
+	int m_score;
+
 private:
 
 	// 壁の判定フラグ
@@ -65,8 +68,7 @@ private:
 	// 音ハンドル
 	int m_soundMove;		// 操作
 	int m_soundClear;		// 消去
-	// スコア
-	int m_score;
+	
 	//落下加速のインターバル
 	int m_speedUpIntervar;
 	// ミノが底辺で活動できる時間

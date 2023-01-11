@@ -10,7 +10,15 @@ Mino::Mino() :
 	m_secondMinoFlag(false),
 	m_firstId(0),
 	m_secondId(0),
-	m_dropInterval(0)
+	m_dropInterval(0),
+	m_OMinoFlag(false),
+	m_IMinoFlag(false),
+	m_SMinoFlag(false),
+	m_ZMinoFlag(false),
+	m_JMinoFlag(false),
+	m_LMinoFlag(false),
+	m_TMinoFlag(false)
+
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -44,6 +52,14 @@ void Mino::init()
 	m_firstId = 0;
 	m_secondId = 0;
 	m_dropInterval = 70;
+	m_OMinoFlag = false;
+	m_IMinoFlag = false;
+	m_SMinoFlag = false;
+	m_ZMinoFlag = false;
+	m_JMinoFlag = false;
+	m_LMinoFlag = false;
+	m_TMinoFlag = false;
+
 
 	srand((unsigned)time(NULL));
 }
@@ -63,6 +79,34 @@ void Mino::makeMino()
 				m_minoNext[y][x] = kMino::minos[(m_firstId * BLOCK_HEIGHT) + y][x];
 			}
 		}
+		/*if (m_firstId = 0)
+		{
+			m_OMinoFlag = true;
+		}
+		if (m_firstId = 1)
+		{
+			m_IMinoFlag = true;
+		}
+		if (m_firstId = 2)
+		{
+			m_SMinoFlag = true;
+		}
+		if (m_firstId = 3)
+		{
+			m_ZMinoFlag = true;
+		}
+		if (m_firstId = 4)
+		{
+			m_JMinoFlag = true;
+		}
+		if (m_firstId = 5)
+		{
+			m_LMinoFlag = true;
+		}
+		if (m_firstId = 6)
+		{
+			m_TMinoFlag = true;
+		}*/
 
 		m_firstMinoFlag = false;
 	}
@@ -72,7 +116,97 @@ void Mino::makeMino()
 	{
 		m_secondId = m_firstId;
 		m_firstId = (rand() % BLOCK_TYPE);
-		// ŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì‚ð‘€ì‰Â”\‚É‚·‚é•Û‘¶
+		/*if (m_firstId = 0)
+		{
+			m_OMinoFlag = true;
+		}
+		if (m_firstId = 1)
+		{
+			m_IMinoFlag = true;
+		}
+		if (m_firstId = 2)
+		{
+			m_SMinoFlag = true;
+		}
+		if (m_firstId = 3)
+		{
+			m_ZMinoFlag = true;
+		}
+		if (m_firstId = 4)
+		{
+			m_JMinoFlag = true;
+		}
+		if (m_firstId = 5)
+		{
+			m_LMinoFlag = true;
+		}
+		if (m_firstId = 6)
+		{
+			m_TMinoFlag = true;
+		}
+		if (m_OMinoFlag)
+		{
+			while (m_firstId == 0)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		if (m_IMinoFlag)
+		{
+			while (m_firstId != 1)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		if (m_SMinoFlag)
+		{
+			while (m_firstId != 2)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		if (m_ZMinoFlag)
+		{
+			while (m_firstId != 3)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		if (m_JMinoFlag)
+		{
+			while (m_firstId != 4)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		if (m_LMinoFlag)
+		{
+			while (m_firstId != 5)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		if (m_TMinoFlag)
+		{
+			while (m_firstId != 0)
+			{
+				m_firstId = (rand() % BLOCK_TYPE);
+			}
+		}
+		
+		if (m_OMinoFlag && m_IMinoFlag && m_SMinoFlag && m_ZMinoFlag && m_JMinoFlag && m_LMinoFlag && m_TMinoFlag)
+		{
+			m_OMinoFlag = false;
+			m_IMinoFlag = false;
+			m_SMinoFlag = false;
+			m_ZMinoFlag = false;
+			m_JMinoFlag = false;
+			m_LMinoFlag = false;
+			m_TMinoFlag = false;
+
+		}*/
+
+		// ŽŸ‚É—Ž‚¿‚Ä‚­‚éƒ~ƒm‚ð‘€ì‰Â”\A‚³‚ç‚ÉŽŸ‚ÉŒ»‚ê‚éƒ~ƒm‚Ì•\Ž¦
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
@@ -83,6 +217,10 @@ void Mino::makeMino()
 		}
 		m_secondMinoFlag = false;
 	}
+
+	// ŽµŽíˆê„
+
+
 }
 
 // ƒ~ƒm‚Ì•`‰æ

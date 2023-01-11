@@ -101,7 +101,7 @@ void GameManager::update()
 // 二個目以降の初期化
 void GameManager::initScond()
 {
-	m_pMino->m_minoX = 5;
+	m_pMino->m_minoX = 4;
 	m_pMino->m_minoY = 0;
 	m_pMino->m_minoFlameY = 0;
 	//m_pMino->m_firstMinoFlag = true;
@@ -400,7 +400,6 @@ void GameManager::searchLine()
 		{
 			m_clearFlag = true;
 			m_score+=10;
-			break;
 		}
 	}
 }
@@ -465,7 +464,11 @@ void GameManager::clearLine()
 void GameManager::drawBack()
 {
 	DrawGraph(0, 0, m_backHandle, TRUE);
+	DrawFormatString(430, 200, GetColor(0, 0, 0), "next");
+	DrawBox(410, 220, 490, 280, GetColor(0, 0, 0), false);
 	DrawFormatString(450, 400, GetColor(0, 0, 0), "スコア＝%d", m_score, true);
-	DrawFormatString(450, 450, GetColor(0, 0, 0), "%d", m_actionTime, true);
-	DrawFormatString(450, 500, GetColor(0, 0, 0), "%d", m_pMino->m_minoY, true);
+
+	// これより下は確認用の変数表示
+	//DrawFormatString(450, 450, GetColor(0, 0, 0), "%d", m_actionTime, true);
+	//DrawFormatString(450, 500, GetColor(0, 0, 0), "%d", m_pMino->m_minoY, true);
 }
