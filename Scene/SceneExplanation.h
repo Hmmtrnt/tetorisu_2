@@ -24,6 +24,4 @@ private:
 	int m_PadHandle;
 	// テキストハンドル
 	int m_textHandle;
-
-
 };
