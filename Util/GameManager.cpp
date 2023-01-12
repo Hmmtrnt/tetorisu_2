@@ -12,9 +12,9 @@ GameManager::GameManager() :
 	m_backHandle(-1),
 	m_soundMove(0),
 	m_soundClear(0),
-	m_score(0),
 	m_speedUpIntervar(0),
-	m_actionTime(0)
+	m_actionTime(0),
+	m_level(0)
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -46,9 +46,9 @@ void GameManager::init()
 	m_collsionFlag = false;
 	m_turnProvisional = 0;
 	m_clearCount = 0;
-	m_score = 0;
 	m_speedUpIntervar = 3;
 	m_actionTime = 60;
+	m_level = 0;
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_soundMove = LoadSoundMem("sound/move.mp3");
 	ChangeVolumeSoundMem(150, m_soundMove);
@@ -80,7 +80,7 @@ void GameManager::update()
 			m_pStage->drawStage();
 			m_pMino->drawMino();
 			fixMino();
-			//m_pMino->fallMino();
+			
 		}
 		else if (m_clearFlag)
 		{
@@ -297,7 +297,6 @@ void GameManager::fixMino()
 	}
 	else if (!m_collsionFlag)
 	{
-		DrawBox(0, 0, 20, 20, GetColor(0, 0, 0), true);
 		m_pMino->fallMino();
 	}
 }
@@ -335,7 +334,7 @@ void GameManager::actionMino()
 			if (m_speedUpIntervar <= 0)
 			{
 				m_speedUpIntervar = 3;
-				m_score++;
+				m_pMino->m_score++;
 				PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 				m_pMino->m_minoY++;
 				m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
@@ -353,7 +352,7 @@ void GameManager::actionMino()
 	// ハードドロップ
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
-		m_score += 20;
+		m_pMino->m_score += 20;
 		collisionBottom();
 		while (!m_collsionFlag)
 		{
@@ -408,7 +407,7 @@ void GameManager::searchLine()
 		if (m_clearMinoLine[i] == 1)
 		{
 			m_clearFlag = true;
-			m_score+=100;
+			m_pMino->m_score+=100;
 		}
 	}
 }
@@ -475,7 +474,7 @@ void GameManager::drawBack()
 	DrawGraph(0, 0, m_backHandle, TRUE);
 	DrawFormatString(430, 200, GetColor(0, 0, 0), "next");
 	DrawBox(410, 220, 490, 280, GetColor(0, 0, 0), false);
-	DrawFormatString(450, 400, GetColor(0, 0, 0), "スコア：%d", m_score, true);
+	DrawFormatString(450, 400, GetColor(0, 0, 0), "スコア：%d", m_pMino->m_score, true);
 
 
 	// これより下は確認用の変数表示

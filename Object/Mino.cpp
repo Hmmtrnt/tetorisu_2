@@ -8,6 +8,7 @@ Mino::Mino() :
 	m_minoFlameY(0),
 	m_firstMinoFlag(false),
 	m_secondMinoFlag(false),
+	m_score(0),
 	m_firstId(0),
 	m_secondId(0),
 	m_dropInterval(0)/*,
@@ -52,6 +53,7 @@ void Mino::init()
 	m_firstId = 0;
 	m_secondId = 0;
 	m_dropInterval = 70;
+	m_score = 0;
 	/*m_OMinoFlag = false;
 	m_IMinoFlag = false;
 	m_SMinoFlag = false;
@@ -335,7 +337,23 @@ void Mino::fallMino()
 		m_dropInterval--;
 		if (m_dropInterval <= 0)
 		{
-			m_dropInterval = 70;
+			if (m_score >= 3000)
+			{
+				m_dropInterval = 40;
+			}
+			else if (m_score >= 2000)
+			{
+				m_dropInterval = 50;
+			}
+			else if (m_score >= 1000)
+			{
+				m_dropInterval = 60;
+			}
+			else if (m_score >= 0)
+			{
+				m_dropInterval = 70;
+			}
+			
 			m_minoFlameY += DRAW_BLOCK_WIDTH;
 			m_minoY++;
 		}

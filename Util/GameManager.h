@@ -40,14 +40,12 @@ public:
 	void searchLine();
 	// 揃った列の入れ替え
 	void clearLine();
+	
 	// 背景
 	void drawBack();
 
 	// ゲームオーバーになったかどうか
 	bool m_gameoverFlag;
-
-	// スコア
-	int m_score;
 
 private:
 

@@ -10,7 +10,8 @@ SceneExplanation::SceneExplanation() :
 	m_textHandle(-1),
 	m_textFlash(0),
 	m_textShow(0),
-	m_textHide(0)
+	m_textHide(0),
+	m_soundHandle(0)
 {
 }
 
@@ -27,6 +28,7 @@ void SceneExplanation::init()
 	m_textHide = 20;
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_PadHandle = LoadGraph("data/GamePad3.png");
+	m_soundHandle = LoadSoundMem("sound/pushTitle.mp3");// 音
 	m_textHandle = CreateFontToHandle(NULL, 80, 4);		// 文字サイズ
 }
 
@@ -34,6 +36,7 @@ void SceneExplanation::end()
 {
 	DeleteGraph(m_backHandle);
 	DeleteGraph(m_PadHandle);
+	DeleteSoundMem(m_soundHandle);
 }
 
 SceneBase* SceneExplanation::update()
@@ -63,6 +66,8 @@ SceneBase* SceneExplanation::update()
 		// フェードアウト開始
 		if (Pad::isTrigger(PAD_INPUT_2))
 		{
+			ChangeVolumeSoundMem(150, m_soundHandle);
+			PlaySoundMem(m_soundHandle, DX_PLAYTYPE_BACK);
 			m_fadeSpeed = -kFade::Speed;
 		}
 	}

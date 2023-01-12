@@ -28,6 +28,8 @@ public:
 	// 操作するミノの作られたかどうかのフラグ
 	bool m_secondMinoFlag;
 
+	// スコア
+	int m_score;
 
 	// 控えにあるミノの種類
 	int m_firstId;
@@ -37,10 +39,11 @@ public:
 	int m_minoSave[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// 次に落ちてくるミノの配列の保存
 	int m_minoNext[BLOCK_HEIGHT][BLOCK_WIDTH];
-
-private:
 	// ミノが降下するインターバル
 	int m_dropInterval;
+
+private:
+	
 
 	// 七種一巡フラグ
 	/*bool m_OMinoFlag;
