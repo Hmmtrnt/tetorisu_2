@@ -73,6 +73,8 @@ private:
 	int m_speedUpIntervar;
 	// ミノが底辺で活動できる時間
 	int m_actionTime;
+	// レベル
+	int m_level;
 
 	// ミノとステージのポインタ
 	Mino*	m_pMino;
