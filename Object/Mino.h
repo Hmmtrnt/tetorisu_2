@@ -43,12 +43,12 @@ private:
 	int m_dropInterval;
 
 	// µíˆê„ƒtƒ‰ƒO
-	bool m_OMinoFlag;
+	/*bool m_OMinoFlag;
 	bool m_IMinoFlag;
 	bool m_SMinoFlag;
 	bool m_ZMinoFlag;
 	bool m_JMinoFlag;
 	bool m_LMinoFlag;
-	bool m_TMinoFlag;
+	bool m_TMinoFlag;*/
 
 };

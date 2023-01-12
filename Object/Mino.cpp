@@ -10,14 +10,14 @@ Mino::Mino() :
 	m_secondMinoFlag(false),
 	m_firstId(0),
 	m_secondId(0),
-	m_dropInterval(0),
+	m_dropInterval(0)/*,
 	m_OMinoFlag(false),
 	m_IMinoFlag(false),
 	m_SMinoFlag(false),
 	m_ZMinoFlag(false),
 	m_JMinoFlag(false),
 	m_LMinoFlag(false),
-	m_TMinoFlag(false)
+	m_TMinoFlag(false)*/
 
 {
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
@@ -52,13 +52,13 @@ void Mino::init()
 	m_firstId = 0;
 	m_secondId = 0;
 	m_dropInterval = 70;
-	m_OMinoFlag = false;
+	/*m_OMinoFlag = false;
 	m_IMinoFlag = false;
 	m_SMinoFlag = false;
 	m_ZMinoFlag = false;
 	m_JMinoFlag = false;
 	m_LMinoFlag = false;
-	m_TMinoFlag = false;
+	m_TMinoFlag = false;*/
 
 
 	srand((unsigned)time(NULL));
