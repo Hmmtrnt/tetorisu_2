@@ -7,7 +7,10 @@ SceneExplanation::SceneExplanation() :
 	m_fadeSpeed(0),
 	m_backHandle(-1),
 	m_PadHandle(-1),
-	m_textHandle(-1)
+	m_textHandle(-1),
+	m_textFlash(0),
+	m_textShow(0),
+	m_textHide(0)
 {
 }
 
@@ -19,6 +22,9 @@ void SceneExplanation::init()
 {
 	m_fadeBright = kFade::Bright;						// フェード処理
 	m_fadeSpeed = kFade::Speed;							// フェード速度
+	m_textFlash = 0;
+	m_textShow = 40;
+	m_textHide = 20;
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_PadHandle = LoadGraph("data/GamePad3.png");
 	m_textHandle = CreateFontToHandle(NULL, 80, 4);		// 文字サイズ
@@ -32,6 +38,12 @@ void SceneExplanation::end()
 
 SceneBase* SceneExplanation::update()
 {
+	// テキストの点滅
+	m_textFlash++;
+	if (m_textFlash >= m_textShow + m_textHide)
+	{
+		m_textFlash = 0;
+	}
 
 	// フェードアウトの処理
 	m_fadeBright += m_fadeSpeed;
@@ -79,7 +91,6 @@ void SceneExplanation::draw()
 	DrawLine(248, 385, 248, 410, GetColor(0, 0, 0), true);
 	DrawLine(248, 410, 170, 410, GetColor(0, 0, 0), true);
 
-
 	DrawString(380, 250, "いつでもゲームを終了出来ます", GetColor(0, 0, 0), true);
 	DrawString(480, 390, "ミノの回転", GetColor(0, 0, 0), true);
 	DrawString(180, 250, "ハードドロップ", GetColor(0, 0, 0), true);
@@ -87,4 +98,10 @@ void SceneExplanation::draw()
 	DrawString(50, 402, "ソフトドロップ", GetColor(0, 0, 0), true);
 
 	DrawStringToHandle(140, 100, "操作説明", GetColor(0, 0, 0), m_textHandle);
+
+	// 点滅テキスト
+	if (m_textFlash < m_textShow)
+	{
+		DrawString(220, 570, "Ｂボタンを押してスタート", GetColor(0, 0, 0), true);
+	}
 }
