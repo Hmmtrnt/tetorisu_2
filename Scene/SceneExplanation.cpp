@@ -30,9 +30,27 @@ void SceneExplanation::end()
 
 SceneBase* SceneExplanation::update()
 {
-	if (Pad::isTrigger(PAD_INPUT_2))
+
+	// フェードアウトの処理
+	m_fadeBright += m_fadeSpeed;
+	if (m_fadeBright >= 255)
 	{
+		m_fadeBright = 255;
+		m_fadeSpeed = 0;
+	}
+	if ((m_fadeBright <= 0) && (m_fadeSpeed < 0))
+	{
+		m_fadeBright = 0;
 		return(new SceneMain);
+	}
+
+	if (m_fadeSpeed == 0)
+	{
+		// フェードアウト開始
+		if (Pad::isTrigger(PAD_INPUT_2))
+		{
+			m_fadeSpeed = -kFade::Speed;
+		}
 	}
 
 	return this;
@@ -40,6 +58,9 @@ SceneBase* SceneExplanation::update()
 
 void SceneExplanation::draw()
 {
+	// 描画輝度
+	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
+
 	DrawGraph(0, 0, m_backHandle, true);
 	DrawGraph(0, 0, m_PadHandle, true);
 
