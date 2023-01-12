@@ -11,7 +11,8 @@ SceneTitle::SceneTitle() :
 	m_textFlash(0),
 	m_textShow(0),
 	m_textHide(0),
-	m_soundHandle(0)
+	m_soundHandle(0),
+	m_PadHandle(-1)
 {
 
 }
@@ -34,6 +35,9 @@ void SceneTitle::init()
 	m_textHide = 20;
 	// 音
 	m_soundHandle = LoadSoundMem("sound/pushTitle.mp3");
+	// 画像
+	m_PadHandle = LoadGraph("data/GamePad2.png");
+
 }
 
 // 終了処理
@@ -44,6 +48,7 @@ void SceneTitle::end()
 
 	DeleteGraph(m_backHandle);
 	DeleteSoundMem(m_soundHandle);
+	DeleteGraph(m_PadHandle);
 }
 
 // 更新処理
@@ -80,11 +85,6 @@ SceneBase* SceneTitle::update()
 		}
 	}
 
-	/*if (Pad::isTrigger(PAD_INPUT_2))
-	{
-		return (new SceneMain);
-	}*/
-
 	return this;
 }
 
@@ -95,7 +95,10 @@ void SceneTitle::draw()
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
 	DrawGraph(0, 0, m_backHandle, true);
-	
+	//DrawGraph(0, 0, m_PadHandle, true);
+
+	DrawBox(0, 0, 150, 150, GetColor(0, 0, 0), true);
+
 	DrawStringToHandle(160, 150, "テトリス", GetColor(0, 0, 0), m_textHandle);
 
 	// 点滅テキスト

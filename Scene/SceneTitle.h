@@ -31,4 +31,6 @@ private:
 	int m_textHide;			// 非表示
 	// 音ハンドル
 	int m_soundHandle;
+	// 画僧ハンドル
+	int m_PadHandle;
 };
