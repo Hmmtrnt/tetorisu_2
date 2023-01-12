@@ -64,7 +64,7 @@ void SceneExplanation::draw()
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
 	DrawGraph(0, 0, m_backHandle, true);
-	DrawGraph(175, 200, m_PadHandle, true);
+	DrawGraph(175, 300, m_PadHandle, true);
 
 	DrawStringToHandle(170, 100, "ëÄçÏê‡ñæ", GetColor(0, 0, 0), m_textHandle);
 }
