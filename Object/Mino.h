@@ -39,6 +39,8 @@ public:
 	int m_minoSave[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// 次に落ちてくるミノの配列の保存
 	int m_minoNext[BLOCK_HEIGHT][BLOCK_WIDTH];
+	// ミノの影
+	int m_minoShade[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// ミノが降下するインターバル
 	int m_dropInterval;
 
