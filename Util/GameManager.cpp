@@ -280,6 +280,10 @@ void GameManager::fixMino()
 	if (m_collsionFlag)
 	{
 		m_actionTime--;
+		if (Pad::isTrigger(PAD_INPUT_UP))
+		{
+			m_actionTime = 0;
+		}
 		if (m_actionTime <= 0)
 		{
 			saveMino();
