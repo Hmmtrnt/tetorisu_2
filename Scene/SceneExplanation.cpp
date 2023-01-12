@@ -66,5 +66,25 @@ void SceneExplanation::draw()
 	DrawGraph(0, 0, m_backHandle, true);
 	DrawGraph(175, 300, m_PadHandle, true);
 
-	DrawStringToHandle(170, 100, "操作説明", GetColor(0, 0, 0), m_textHandle);
+	// ボタン４
+	DrawLine(400, 332, 400, 270, GetColor(0, 0, 0), true);
+	// ボタン１
+	DrawLine(400, 395, 480, 395, GetColor(0, 0, 0), true);
+	// ボタンUP
+	DrawLine(248, 338, 248, 270, GetColor(0, 0, 0), true);
+	// ボタンRIGHT,LEFT
+	DrawLine(224, 364, 180, 364, GetColor(0, 0, 0), true);
+	DrawBox(224, 354, 273, 374, GetColor(0, 0, 0), false);
+	// ボタンDOWN
+	DrawLine(248, 385, 248, 410, GetColor(0, 0, 0), true);
+	DrawLine(248, 410, 170, 410, GetColor(0, 0, 0), true);
+
+
+	DrawString(380, 250, "いつでもゲームを終了出来ます", GetColor(0, 0, 0), true);
+	DrawString(480, 390, "ミノの回転", GetColor(0, 0, 0), true);
+	DrawString(180, 250, "ハードドロップ", GetColor(0, 0, 0), true);
+	DrawString(110, 355, "左右移動", GetColor(0, 0, 0), true);
+	DrawString(50, 402, "ソフトドロップ", GetColor(0, 0, 0), true);
+
+	DrawStringToHandle(140, 100, "操作説明", GetColor(0, 0, 0), m_textHandle);
 }
