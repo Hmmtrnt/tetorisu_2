@@ -1,6 +1,6 @@
 #include "SceneTitle.h"
+#include "SceneExplanation.h"
 #include "SceneMain.h"
-#include "DxLib.h"
 #include "Pad.h"
 
 SceneTitle::SceneTitle() :
@@ -71,7 +71,7 @@ SceneBase* SceneTitle::update()
 	if ((m_fadeBright <= 0) && (m_fadeSpeed < 0))
 	{
 		m_fadeBright = 0;
-		return(new SceneMain);
+		return(new SceneExplanation);
 	}
 
 	if (m_fadeSpeed == 0)
