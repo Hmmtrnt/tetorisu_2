@@ -77,8 +77,8 @@ void GameManager::update()
 			gameover();
 			actionMino();
 			drawBack();
-			m_pMino->drawMino();
 			m_pStage->drawStage();
+			m_pMino->drawMino();
 			fixMino();
 			//m_pMino->fallMino();
 		}
@@ -347,19 +347,24 @@ void GameManager::actionMino()
 	}
 
 	// ハードドロップ
-	/*if (Pad::isTrigger(PAD_INPUT_2) == 1)
+	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
+		m_score += 20;
 		collisionBottom();
-		switch (m_collsionFlag)
+		while (!m_collsionFlag)
 		{
-		case false:
 			m_pMino->m_minoY++;
 			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
-		default:
-			break;
+			collisionBottom();
 		}
+
+		/*if (!m_collsionFlag)
+		{
+			m_pMino->m_minoY+=20;
+			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH * 20;
+		}*/
 		
-	}*/
+	}
 }
 
 // ミノをステージの配列に保存
@@ -399,7 +404,7 @@ void GameManager::searchLine()
 		if (m_clearMinoLine[i] == 1)
 		{
 			m_clearFlag = true;
-			m_score+=10;
+			m_score+=100;
 		}
 	}
 }
@@ -470,5 +475,6 @@ void GameManager::drawBack()
 
 	// これより下は確認用の変数表示
 	//DrawFormatString(450, 450, GetColor(0, 0, 0), "%d", m_actionTime, true);
-	//DrawFormatString(450, 500, GetColor(0, 0, 0), "%d", m_pMino->m_minoY, true);
+	DrawFormatString(450, 500, GetColor(0, 0, 0), "%d", m_pMino->m_minoY, true);
+	DrawFormatString(450, 550, GetColor(0, 0, 0), "%d", m_pMino->m_minoFlameY, true);
 }
