@@ -20,10 +20,10 @@ private:
 	int m_fadeSpeed;
 	// 背景ハンドル
 	int m_backHandle;
-
 	// 画像ハンドル
 	int m_PadHandle;
+	// テキストハンドル
+	int m_textHandle;
 
 
 };
-

@@ -3,10 +3,11 @@
 #include "Pad.h"
 
 SceneExplanation::SceneExplanation() :
+	m_fadeBright(0),
+	m_fadeSpeed(0),
 	m_backHandle(-1),
 	m_PadHandle(-1),
-	m_fadeBright(0),
-	m_fadeSpeed(0)
+	m_textHandle(-1)
 {
 }
 
@@ -19,7 +20,7 @@ void SceneExplanation::init()
 	m_fadeBright = kFade::Bright;	// フェード処理
 	m_fadeSpeed = kFade::Speed;	// フェード速度
 	m_backHandle = LoadGraph("data/back2.jpg");
-	m_PadHandle = LoadGraph("data/GamePad2.png");
+	m_PadHandle = LoadGraph("data/GamePad3.png");
 }
 
 void SceneExplanation::end()
@@ -62,7 +63,7 @@ void SceneExplanation::draw()
 	SetDrawBright(m_fadeBright, m_fadeBright, m_fadeBright);
 
 	DrawGraph(0, 0, m_backHandle, true);
-	DrawGraph(0, 0, m_PadHandle, true);
+	DrawGraph(175, 200, m_PadHandle, true);
 
 	DrawFormatString(200, 200, GetColor(0, 0, 0), "操作説明");
 }

@@ -20,7 +20,6 @@ private:
 	int m_fadeBright;
 	// フェード速度
 	int m_fadeSpeed;
-
 	// 背景ハンドル
 	int m_backHandle;
 	// テキストハンドル
@@ -31,6 +30,4 @@ private:
 	int m_textHide;			// 非表示
 	// 音ハンドル
 	int m_soundHandle;
-	// 画僧ハンドル
-	int m_PadHandle;
 };
