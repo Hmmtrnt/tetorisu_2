@@ -460,8 +460,6 @@ void GameManager::clearLine()
 		}
 		PlaySoundMem(m_soundClear, DX_PLAYTYPE_BACK);
 
-		
-
 		m_clearFlag = false;
 		m_clearCount = 0;
 		initScond();
@@ -473,6 +471,7 @@ void GameManager::drawBack()
 {
 	DrawGraph(0, 0, m_backHandle, TRUE);
 	DrawFormatString(430, 200, GetColor(0, 0, 0), "next");
+	DrawBox(410, 220, 490, 280, GetColor(200, 200, 200), true);
 	DrawBox(410, 220, 490, 280, GetColor(0, 0, 0), false);
 	DrawFormatString(450, 400, GetColor(0, 0, 0), "スコア：%d", m_pMino->m_score, true);
 
