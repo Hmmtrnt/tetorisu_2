@@ -478,6 +478,6 @@ void GameManager::drawBack()
 
 	// これより下は確認用の変数表示
 	//DrawFormatString(450, 450, GetColor(0, 0, 0), "%d", m_actionTime, true);
-	/*DrawFormatString(450, 500, GetColor(0, 0, 0), "%d", m_pMino->m_minoY, true);
-	DrawFormatString(450, 550, GetColor(0, 0, 0), "%d", m_pMino->m_minoFlameY, true);*/
+	//DrawFormatString(450, 500, GetColor(0, 0, 0), "%d", m_pMino->m_minoY, true);
+	//DrawFormatString(450, 550, GetColor(0, 0, 0), "%d", m_pMino->m_minoFlameY, true);
 }
