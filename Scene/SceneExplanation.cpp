@@ -17,10 +17,11 @@ SceneExplanation::~SceneExplanation()
 
 void SceneExplanation::init()
 {
-	m_fadeBright = kFade::Bright;	// フェード処理
-	m_fadeSpeed = kFade::Speed;	// フェード速度
+	m_fadeBright = kFade::Bright;						// フェード処理
+	m_fadeSpeed = kFade::Speed;							// フェード速度
 	m_backHandle = LoadGraph("data/back2.jpg");
 	m_PadHandle = LoadGraph("data/GamePad3.png");
+	m_textHandle = CreateFontToHandle(NULL, 80, 4);		// 文字サイズ
 }
 
 void SceneExplanation::end()
@@ -65,5 +66,5 @@ void SceneExplanation::draw()
 	DrawGraph(0, 0, m_backHandle, true);
 	DrawGraph(175, 200, m_PadHandle, true);
 
-	DrawFormatString(200, 200, GetColor(0, 0, 0), "操作説明");
+	DrawStringToHandle(170, 100, "操作説明", GetColor(0, 0, 0), m_textHandle);
 }
