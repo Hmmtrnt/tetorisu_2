@@ -53,7 +53,7 @@ public:
 private:
 
 	// 壁の判定フラグ
-	bool m_collsionFlag;
+	bool m_collisionFlag;
 	// 回転後のミノを作る
 	int m_turnProvisional;
 	// 回転したミノを保存
@@ -69,7 +69,8 @@ private:
 	// 音ハンドル
 	int m_soundMove;		// 操作
 	int m_soundClear;		// 消去
-	
+	// 音が鳴ったかどうか
+	bool m_soundRing;
 	//落下加速のインターバル
 	int m_speedUpIntervar;
 	// 左右移動のインターバル

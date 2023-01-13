@@ -5,13 +5,14 @@
 
 GameManager::GameManager() :
 	m_gameoverFlag(false),
-	m_collsionFlag(false),
+	m_collisionFlag(false),
 	m_turnProvisional(0) ,
 	m_clearCount(0),
 	m_clearFlag(false),
 	m_backHandle(-1),
 	m_soundMove(0),
 	m_soundClear(0),
+	m_soundRing(false),
 	m_speedUpIntervar(0),
 	m_LRIntervar(0),
 	m_actionTime(0),
@@ -44,7 +45,7 @@ GameManager::~GameManager()
 void GameManager::init()
 {
 	m_gameoverFlag = false;
-	m_collsionFlag = false;
+	m_collisionFlag = false;
 	m_turnProvisional = 0;
 	m_clearCount = 0;
 	m_speedUpIntervar = 3;
@@ -56,6 +57,7 @@ void GameManager::init()
 	ChangeVolumeSoundMem(150, m_soundMove);
 	m_soundClear = LoadSoundMem("sound/clear1.mp3");
 	ChangeVolumeSoundMem(255, m_soundClear);
+	m_soundRing = false;
 
 	m_pMino->init();
 	m_pStage->init();
@@ -116,7 +118,7 @@ void GameManager::gameover()
 {
 	collisionOver();
 
-	if (m_collsionFlag)
+	if (m_collisionFlag)
 	{
 		m_gameoverFlag = true;
 	}
@@ -128,7 +130,7 @@ void GameManager::gameover()
 // 左
 void GameManager::collisionLeft()
 {
-	m_collsionFlag = false;
+	m_collisionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -138,11 +140,11 @@ void GameManager::collisionLeft()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x - 1)] != 0)
 				{
-					m_collsionFlag = true;
+					m_collisionFlag = true;
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0) {
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x - 1)] != 0) {
-						m_collsionFlag = 1;
+						m_collisionFlag = 1;
 					}
 				}
 			}
@@ -153,7 +155,7 @@ void GameManager::collisionLeft()
 // 右
 void GameManager::collisionRight()
 {
-	m_collsionFlag = false;
+	m_collisionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -163,11 +165,11 @@ void GameManager::collisionRight()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x + 1)] != 0)
 				{
-					m_collsionFlag = true;
+					m_collisionFlag = true;
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0) {
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x + 1)] != 0) {
-						m_collsionFlag = 1;
+						m_collisionFlag = 1;
 					}
 				}
 			}
@@ -178,7 +180,7 @@ void GameManager::collisionRight()
 // 地面
 void GameManager::collisionBottom()
 {
-	m_collsionFlag = false;
+	m_collisionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -189,7 +191,7 @@ void GameManager::collisionBottom()
 				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0 /*&& 
 					m_pStage->m_stage[m_pMino->m_minoShadeY + (y + 1)][m_pMino->m_minoX + x] != 0*/)
 				{
-					m_collsionFlag = true;
+					m_collisionFlag = true;
 				}
 			}
 		}
@@ -199,7 +201,7 @@ void GameManager::collisionBottom()
 // 天井
 void GameManager::collisionOver()
 {
-	m_collsionFlag = false;
+	m_collisionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -209,7 +211,7 @@ void GameManager::collisionOver()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
-					m_collsionFlag = true;
+					m_collisionFlag = true;
 				}
 			}
 		}
@@ -219,7 +221,7 @@ void GameManager::collisionOver()
 // 回転
 void GameManager::collisionTurn()
 {
-	m_collsionFlag = false;
+	m_collisionFlag = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -229,7 +231,7 @@ void GameManager::collisionTurn()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
-					m_collsionFlag = true;
+					m_collisionFlag = true;
 				}
 			}
 		}
@@ -259,7 +261,7 @@ void GameManager::turnMino()
 	collisionTurn();
 
 	//回転した際に壁にめり込むのであれば回転しない
-	if (!m_collsionFlag)
+	if (!m_collisionFlag)
 	{
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
@@ -281,7 +283,7 @@ void GameManager::fixMino()
 {
 	collisionBottom();
 
-	if (m_collsionFlag)
+	if (m_collisionFlag)
 	{
 		m_actionTime--;
 		if (Pad::isTrigger(PAD_INPUT_UP))
@@ -299,7 +301,7 @@ void GameManager::fixMino()
 			m_actionTime = 60;
 		}
 	}
-	else if (!m_collsionFlag)
+	else if (!m_collisionFlag)
 	{
 		m_pMino->fallMino();
 		m_actionTime = 60;
@@ -314,24 +316,44 @@ void GameManager::actionMino()
 	{
 		m_LRIntervar--;
 		collisionLeft();
-		if (!m_collsionFlag)
+		if (!m_collisionFlag)
 		{
-			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+			m_soundRing = false;
 			if (m_LRIntervar <= 0)
 			{
 				m_pMino->m_minoX--;
 				m_LRIntervar = 3;
 			}
 		}
+		// 壁に当たった時に音が鳴る
+		/*else if (m_collisionFlag)
+		{
+			m_soundRing = true;
+			if (m_soundRing)
+			{
+				PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+			}
+			m_soundRing = false;
+		}*/
 	}
+
+	/*if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
+	{
+		collisionLeft();
+		if (m_collisionFlag)
+		{
+			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+		}
+	}*/
+
 	// 右
 	if (Pad::isPress(PAD_INPUT_RIGHT) == 1)
 	{
 		m_LRIntervar--;
 		collisionRight();
-		if (!m_collsionFlag)
+		if (!m_collisionFlag)
 		{
-			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+			//PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 			if (m_LRIntervar <= 0)
 			{
 				m_pMino->m_minoX++;
@@ -339,11 +361,16 @@ void GameManager::actionMino()
 			}
 		}
 	}
+	/*if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
+	{
+		PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+	}*/
+
 	// ソフトドロップ
 	if (Pad::isPress(PAD_INPUT_DOWN) == 1)
 	{
 		collisionBottom();
-		if (!m_collsionFlag)
+		if (!m_collisionFlag)
 		{
 			m_speedUpIntervar--;
 			if (m_speedUpIntervar <= 0)
@@ -368,15 +395,17 @@ void GameManager::actionMino()
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
 		hardDrop();
-		
 	}
+
+	
+
 }
 
 void GameManager::hardDrop()
 {
 	m_pMino->m_score += 20;
 	collisionBottom();
-	while (!m_collsionFlag)
+	while (!m_collisionFlag)
 	{
 		m_pMino->m_minoY++;
 		m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
