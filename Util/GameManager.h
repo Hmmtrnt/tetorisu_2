@@ -34,13 +34,16 @@ public:
 	void fixMino();
 	// ミノの操作
 	void actionMino();
+	// ハードドロップ
+	void hardDrop();
+	// ミノの落下地点
+	void dropPointMino();
 	// ミノをステージの配列に保存
 	void saveMino();
 	// 揃った列を調べる
 	void searchLine();
 	// 揃った列の入れ替え
 	void clearLine();
-	
 	// 背景
 	void drawBack();
 

@@ -17,9 +17,14 @@ public:
 	// ミノの落下
 	void fallMino();
 
-	// ミノのステージの中の座標
+	// 操作できるミノのステージ内の座標
 	int m_minoX;	// X座標
 	int m_minoY;	// Y座標
+	// ミノの落下地点のステージ内の座標
+	int m_minoShadeX;
+	int m_minoShadeY;
+	// ミノの落下地点のフレーム座標
+	int m_minoShadeFY;	// Y座標
 
 	// ミノの落下するフレームのY座標
 	float m_minoFlameY;
@@ -39,7 +44,7 @@ public:
 	int m_minoSave[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// 次に落ちてくるミノの配列の保存
 	int m_minoNext[BLOCK_HEIGHT][BLOCK_WIDTH];
-	// ミノの影
+	// ミノの落下地点
 	int m_minoShade[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// ミノが降下するインターバル
 	int m_dropInterval;

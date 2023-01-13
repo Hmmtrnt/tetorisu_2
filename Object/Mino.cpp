@@ -5,6 +5,9 @@
 Mino::Mino() :
 	m_minoX(0),
 	m_minoY(0),
+	m_minoShadeX(0),
+	m_minoShadeY(0),
+	m_minoShadeFY(0),
 	m_minoFlameY(0),
 	m_firstMinoFlag(false),
 	m_secondMinoFlag(false),
@@ -55,6 +58,9 @@ void Mino::init()
 {
 	m_minoX = 4;
 	m_minoY = 0;
+	m_minoShadeX = 0;
+	m_minoShadeY = 0;
+	m_minoShadeFY = 0;
 	m_minoFlameY = 0;
 	m_firstMinoFlag = true;
 	m_secondMinoFlag = true;
@@ -222,6 +228,7 @@ void Mino::makeMino()
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
 				m_minoSave[y][x] = m_minoNext[y][x];
+				m_minoShade[y][x] = m_minoNext[y][x];
 				m_minoNext[y][x] = kMino::minos[(m_firstId * BLOCK_HEIGHT) + y][x];
 			}
 		}
@@ -335,6 +342,56 @@ void Mino::drawMino()
 			}
 		}
 	}
+
+	// Œ»Ý—Ž‚¿‚Ä‚­‚éƒ~ƒm‚Ì‰e‚Ì•`‰æ
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			// Oƒ~ƒm
+			if (m_minoShade[y][x] == 1)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, " ");
+			}
+			// Iƒ~ƒm
+			else if (m_minoShade[y][x] == 2)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, " ");
+			}
+			// Sƒ~ƒm
+			else if (m_minoShade[y][x] == 3)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, " ");
+			}
+			// Zƒ~ƒm
+			else if (m_minoShade[y][x] == 4)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, " ");
+			}
+			// Jƒ~ƒm
+			else if (m_minoShade[y][x] == 5)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, " ");
+			}
+			// Lƒ~ƒm
+			else if (m_minoShade[y][x] == 6)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, " ");
+			}
+			// Tƒ~ƒm
+			else if (m_minoShade[y][x] == 7)
+			{
+				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, " ");
+			}
+		}
+	}
 }
 
 // ƒ~ƒm‚Ì—Ž‰º
@@ -361,7 +418,6 @@ void Mino::fallMino()
 			{
 				m_dropInterval = 70;
 			}
-			
 			m_minoFlameY += DRAW_BLOCK_WIDTH;
 			m_minoY++;
 		}

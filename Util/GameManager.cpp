@@ -79,8 +79,8 @@ void GameManager::update()
 			drawBack();
 			m_pStage->drawStage();
 			m_pMino->drawMino();
+			dropPointMino();
 			fixMino();
-			
 		}
 		else if (m_clearFlag)
 		{
@@ -182,9 +182,10 @@ void GameManager::collisionBottom()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->m_minoSave[y][x] != 0)
+			if (m_pMino->m_minoSave[y][x] != 0 /*&& m_pMino->m_minoShade[y][x] != 0*/)
 			{
-				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0 /*&& 
+					m_pStage->m_stage[m_pMino->m_minoShadeY + (y + 1)][m_pMino->m_minoX + x] != 0*/)
 				{
 					m_collsionFlag = true;
 				}
@@ -263,6 +264,7 @@ void GameManager::turnMino()
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
 				m_pMino->m_minoSave[y][x] = m_turnMino[y][x];
+				m_pMino->m_minoShade[y][x] = m_turnMino[y][x];
 			}
 		}
 	}
@@ -298,6 +300,7 @@ void GameManager::fixMino()
 	else if (!m_collsionFlag)
 	{
 		m_pMino->fallMino();
+		m_actionTime = 60;
 	}
 }
 
@@ -352,22 +355,32 @@ void GameManager::actionMino()
 	// ハードドロップ
 	if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 	{
-		m_pMino->m_score += 20;
-		collisionBottom();
-		while (!m_collsionFlag)
-		{
-			m_pMino->m_minoY++;
-			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
-			collisionBottom();
-		}
-
-		/*if (!m_collsionFlag)
-		{
-			m_pMino->m_minoY+=20;
-			m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH * 20;
-		}*/
+		hardDrop();
 		
 	}
+}
+
+void GameManager::hardDrop()
+{
+	m_pMino->m_score += 20;
+	collisionBottom();
+	while (!m_collsionFlag)
+	{
+		m_pMino->m_minoY++;
+		m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
+		collisionBottom();
+	}
+}
+
+void GameManager::dropPointMino()
+{
+	/*collisionBottom();
+	while (!m_collsionFlag)
+	{
+		m_pMino->m_minoShadeY++;
+		m_pMino->m_minoShadeFY += DRAW_BLOCK_WIDTH;
+		collisionBottom();
+	}*/
 }
 
 // ミノをステージの配列に保存
