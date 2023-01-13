@@ -377,7 +377,7 @@ void GameManager::actionMino()
 			{
 				m_speedUpIntervar = 3;
 				m_pMino->m_score++;
-				PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+				//PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 				m_pMino->m_minoY++;
 				m_pMino->m_minoFlameY += DRAW_BLOCK_WIDTH;
 			}
@@ -387,7 +387,7 @@ void GameManager::actionMino()
 	// ƒ~ƒm‚Ì‰ñ“]
 	if (Pad::isTrigger(PAD_INPUT_1) == 1)
 	{
-		PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
+		//PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 		turnMino();
 	}
 
