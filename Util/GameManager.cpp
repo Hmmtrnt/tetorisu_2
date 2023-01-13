@@ -144,7 +144,7 @@ void GameManager::collisionLeft()
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0) {
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x - 1)] != 0) {
-						m_collisionFlag = 1;
+						m_collisionFlag = true;
 					}
 				}
 			}
@@ -169,7 +169,7 @@ void GameManager::collisionRight()
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0) {
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x + 1)] != 0) {
-						m_collisionFlag = 1;
+						m_collisionFlag = true;
 					}
 				}
 			}
@@ -186,10 +186,10 @@ void GameManager::collisionBottom()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->m_minoSave[y][x] != 0 /*&& m_pMino->m_minoShade[y][x] != 0*/)
+			if (m_pMino->m_minoSave[y][x] != 0 && m_pMino->m_minoShade[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0 /*&& 
-					m_pStage->m_stage[m_pMino->m_minoShadeY + (y + 1)][m_pMino->m_minoX + x] != 0*/)
+				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0 && 
+					m_pStage->m_stage[m_pMino->m_minoShadeY + (y + 1)][m_pMino->m_minoX + x] != 0)
 				{
 					m_collisionFlag = true;
 				}
@@ -415,13 +415,13 @@ void GameManager::hardDrop()
 
 void GameManager::dropPointMino()
 {
-	/*collisionBottom();
-	while (!m_collsionFlag)
+	collisionBottom();
+	while (!m_collisionFlag)
 	{
 		m_pMino->m_minoShadeY++;
 		m_pMino->m_minoShadeFY += DRAW_BLOCK_WIDTH;
 		collisionBottom();
-	}*/
+	}
 }
 
 // ミノをステージの配列に保存
