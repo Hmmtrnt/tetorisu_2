@@ -13,6 +13,7 @@ GameManager::GameManager() :
 	m_soundMove(0),
 	m_soundClear(0),
 	m_speedUpIntervar(0),
+	m_LRIntervar(0),
 	m_actionTime(0),
 	m_level(0)
 {
@@ -47,6 +48,7 @@ void GameManager::init()
 	m_turnProvisional = 0;
 	m_clearCount = 0;
 	m_speedUpIntervar = 3;
+	m_LRIntervar = 3;
 	m_actionTime = 60;
 	m_level = 0;
 	m_backHandle = LoadGraph("data/back2.jpg");
@@ -308,23 +310,33 @@ void GameManager::fixMino()
 void GameManager::actionMino()
 {
 	// 左
-	if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
+	if (Pad::isPress(PAD_INPUT_LEFT) == 1)
 	{
+		m_LRIntervar--;
 		collisionLeft();
 		if (!m_collsionFlag)
 		{
 			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
-			m_pMino->m_minoX--;
+			if (m_LRIntervar <= 0)
+			{
+				m_pMino->m_minoX--;
+				m_LRIntervar = 3;
+			}
 		}
 	}
 	// 右
-	if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
+	if (Pad::isPress(PAD_INPUT_RIGHT) == 1)
 	{
+		m_LRIntervar--;
 		collisionRight();
 		if (!m_collsionFlag)
 		{
 			PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
-			m_pMino->m_minoX++;
+			if (m_LRIntervar <= 0)
+			{
+				m_pMino->m_minoX++;
+				m_LRIntervar = 3;
+			}
 		}
 	}
 	// ソフトドロップ

@@ -72,6 +72,8 @@ private:
 	
 	//落下加速のインターバル
 	int m_speedUpIntervar;
+	// 左右移動のインターバル
+	int m_LRIntervar;
 	// ミノが底辺で活動できる時間
 	int m_actionTime;
 	// レベル
