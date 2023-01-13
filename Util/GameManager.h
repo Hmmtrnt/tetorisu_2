@@ -54,10 +54,18 @@ private:
 
 	// 壁の判定フラグ
 	bool m_collisionFlag;
+	// 右の壁の判定フラグ
+	bool m_colFlagR;
+	// 左の壁の判定フラグ
+	bool m_colFlagL;
+	// 落下予測地点の判定フラグ
+	bool m_colFlagShade;
 	// 回転後のミノを作る
 	int m_turnProvisional;
 	// 回転したミノを保存
 	int m_turnMino[BLOCK_HEIGHT][BLOCK_WIDTH];
+	// 予測地点に回転したミノを保存
+	int m_turnMinoShade[BLOCK_HEIGHT][BLOCK_WIDTH];
 	// 消去するミノ
 	int m_clearMinoLine[STAGE_HEIGHT - 1];
 	// 消去する一列の数

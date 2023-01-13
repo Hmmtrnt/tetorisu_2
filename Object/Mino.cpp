@@ -344,54 +344,54 @@ void Mino::drawMino()
 	}
 
 	// 現在落ちてくるミノの影の描画
-	for (int y = 0; y < BLOCK_HEIGHT; y++)
-	{
-		for (int x = 0; x < BLOCK_WIDTH; x++)
-		{
-			// Oミノ
-			if (m_minoShade[y][x] == 1)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "□");
-			}
-			// Iミノ
-			else if (m_minoShade[y][x] == 2)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "□");
-			}
-			// Sミノ
-			else if (m_minoShade[y][x] == 3)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "□");
-			}
-			// Zミノ
-			else if (m_minoShade[y][x] == 4)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "□");
-			}
-			// Jミノ
-			else if (m_minoShade[y][x] == 5)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "□");
-			}
-			// Lミノ
-			else if (m_minoShade[y][x] == 6)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "□");
-			}
-			// Tミノ
-			else if (m_minoShade[y][x] == 7)
-			{
-				DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
-					DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "□");
-			}
-		}
-	}
+	//for (int y = 0; y < BLOCK_HEIGHT; y++)
+	//{
+	//	for (int x = 0; x < BLOCK_WIDTH; x++)
+	//	{
+	//		// Oミノ
+	//		if (m_minoShade[y][x] == 1)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Yellow, "□");
+	//		}
+	//		// Iミノ
+	//		else if (m_minoShade[y][x] == 2)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_LightBlue, "□");
+	//		}
+	//		// Sミノ
+	//		else if (m_minoShade[y][x] == 3)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Green, "□");
+	//		}
+	//		// Zミノ
+	//		else if (m_minoShade[y][x] == 4)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Red, "□");
+	//		}
+	//		// Jミノ
+	//		else if (m_minoShade[y][x] == 5)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Blue, "□");
+	//		}
+	//		// Lミノ
+	//		else if (m_minoShade[y][x] == 6)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Orange, "□");
+	//		}
+	//		// Tミノ
+	//		else if (m_minoShade[y][x] == 7)
+	//		{
+	//			DrawFormatString(DRAW_POASTION_MINO + m_minoX * DRAW_BLOCK_WIDTH + x * DRAW_BLOCK_WIDTH,
+	//				DRAW_POASTION_MINO + m_minoShadeFY + y * DRAW_BLOCK_WIDTH, kColor::Color_Purple, "□");
+	//		}
+	//	}
+	//}
 }
 
 // ミノの落下

@@ -6,6 +6,9 @@
 GameManager::GameManager() :
 	m_gameoverFlag(false),
 	m_collisionFlag(false),
+	m_colFlagR(false),
+	m_colFlagL(false),
+	m_colFlagShade(false),
 	m_turnProvisional(0) ,
 	m_clearCount(0),
 	m_clearFlag(false),
@@ -23,6 +26,14 @@ GameManager::GameManager() :
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
 			m_turnMino[y][x] = 0;
+		}
+	}
+
+	for (int y = 0; y < BLOCK_HEIGHT; y++)
+	{
+		for (int x = 0; x < BLOCK_WIDTH; x++)
+		{
+			m_turnMinoShade[y][x] = 0;
 		}
 	}
 
@@ -46,6 +57,9 @@ void GameManager::init()
 {
 	m_gameoverFlag = false;
 	m_collisionFlag = false;
+	m_colFlagR = false;
+	m_colFlagL = false;
+	m_colFlagShade = false;
 	m_turnProvisional = 0;
 	m_clearCount = 0;
 	m_speedUpIntervar = 3;
@@ -130,7 +144,7 @@ void GameManager::gameover()
 // ç∂
 void GameManager::collisionLeft()
 {
-	m_collisionFlag = false;
+	m_colFlagL = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -140,11 +154,11 @@ void GameManager::collisionLeft()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x - 1)] != 0)
 				{
-					m_collisionFlag = true;
+					m_colFlagL = true;
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0) {
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x - 1)] != 0) {
-						m_collisionFlag = true;
+						m_colFlagL = true;
 					}
 				}
 			}
@@ -155,7 +169,7 @@ void GameManager::collisionLeft()
 // âE
 void GameManager::collisionRight()
 {
-	m_collisionFlag = false;
+	m_colFlagR = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
@@ -165,11 +179,11 @@ void GameManager::collisionRight()
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + (x + 1)] != 0)
 				{
-					m_collisionFlag = true;
+					m_colFlagR = true;
 				}
 				else if ((int)(m_pMino->m_minoFlameY - (m_pMino->m_minoY * DRAW_BLOCK_WIDTH)) > 0) {
 					if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + (x + 1)] != 0) {
-						m_collisionFlag = true;
+						m_colFlagR = true;
 					}
 				}
 			}
@@ -181,17 +195,24 @@ void GameManager::collisionRight()
 void GameManager::collisionBottom()
 {
 	m_collisionFlag = false;
+	m_colFlagShade = false;
 
 	for (int y = 0; y < BLOCK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_pMino->m_minoSave[y][x] != 0 && m_pMino->m_minoShade[y][x] != 0)
+			if (m_pMino->m_minoSave[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0 && 
-					m_pStage->m_stage[m_pMino->m_minoShadeY + (y + 1)][m_pMino->m_minoX + x] != 0)
+				if (m_pStage->m_stage[m_pMino->m_minoY + (y + 1)][m_pMino->m_minoX + x] != 0)
 				{
 					m_collisionFlag = true;
+				}
+			}
+			if (m_pMino->m_minoShade[y][x] != 0)
+			{
+				if (m_pStage->m_stage[m_pMino->m_minoShadeY + (y + 1)][m_pMino->m_minoX + x] != 0)
+				{
+					m_colFlagShade = true;
 				}
 			}
 		}
@@ -227,13 +248,53 @@ void GameManager::collisionTurn()
 	{
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
-			if (m_turnMino[y][x] != 0)
+			/*if (m_turnMino[y][x] != 0)
 			{
 				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
 				{
 					m_collisionFlag = true;
 				}
+			}*/
+			/*if (m_turnMinoShade[y][x] != 0)
+			{
+				if (m_pStage->m_stage[m_pMino->m_minoShadeY + y][m_pMino->m_minoX + x] != 0)
+				{
+					m_colFlagShade = true;
+				}
+			}*/
+
+			if (m_turnMino[y][x] != 0)
+			{
+				if (m_pStage->m_stage[m_pMino->m_minoY + y][m_pMino->m_minoX + x] != 0)
+				{
+					collisionRight();
+					collisionLeft();
+					//collisionBottom();
+					if (m_colFlagR)
+					{
+						m_pMino->m_minoX--;
+						if (m_turnMino[y][x] == 2)
+						{
+							m_pMino->m_minoX--;
+						}
+					}
+					else if (m_colFlagL)
+					{
+						m_pMino->m_minoX++;
+						if (m_turnMino[y][x] == 2)
+						{
+							m_pMino->m_minoX++;
+						}
+					}/*
+					else if (m_collisionFlag)
+					{
+						m_pMino->m_minoY--;
+						m_pMino->m_minoFlameY -= DRAW_BLOCK_WIDTH;
+					}
+					*/
+				}
 			}
+
 		}
 	}
 }
@@ -255,20 +316,21 @@ void GameManager::turnMino()
 		for (int x = 0; x < BLOCK_WIDTH; x++)
 		{
 			m_turnMino[y][x] = kMino::minos[(m_pMino->m_secondId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
+			m_turnMinoShade[y][x] = kMino::minos[(m_pMino->m_secondId * BLOCK_HEIGHT) + y][(m_turnProvisional % 4 * BLOCK_WIDTH) + x];
 		}
 	}
 
 	collisionTurn();
 
 	//âÒì]ÇµÇΩç€Ç…ï«Ç…ÇﬂÇËçûÇﬁÇÃÇ≈Ç†ÇÍÇŒâÒì]ÇµÇ»Ç¢
-	if (!m_collisionFlag)
+	if (!m_collisionFlag/* && !m_colFlagShade*/)
 	{
 		for (int y = 0; y < BLOCK_HEIGHT; y++)
 		{
 			for (int x = 0; x < BLOCK_WIDTH; x++)
 			{
 				m_pMino->m_minoSave[y][x] = m_turnMino[y][x];
-				m_pMino->m_minoShade[y][x] = m_turnMino[y][x];
+				m_pMino->m_minoShade[y][x] = m_turnMinoShade[y][x];
 			}
 		}
 	}
@@ -316,7 +378,7 @@ void GameManager::actionMino()
 	{
 		m_LRIntervar--;
 		collisionLeft();
-		if (!m_collisionFlag)
+		if (!m_colFlagL)
 		{
 			m_soundRing = false;
 			if (m_LRIntervar <= 0)
@@ -351,7 +413,7 @@ void GameManager::actionMino()
 	{
 		m_LRIntervar--;
 		collisionRight();
-		if (!m_collisionFlag)
+		if (!m_colFlagR)
 		{
 			//PlaySoundMem(m_soundMove, DX_PLAYTYPE_BACK);
 			if (m_LRIntervar <= 0)
@@ -416,7 +478,7 @@ void GameManager::hardDrop()
 void GameManager::dropPointMino()
 {
 	collisionBottom();
-	while (!m_collisionFlag)
+	while (!m_colFlagShade)
 	{
 		m_pMino->m_minoShadeY++;
 		m_pMino->m_minoShadeFY += DRAW_BLOCK_WIDTH;
